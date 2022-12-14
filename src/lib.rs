@@ -11,7 +11,24 @@ mod y2022 {
 
 macro_rules! aoc_solutions {
     ($(($year:ident: $($day:ident),+)),+) => {
-        pub fn run_solution_for(year: u16, day: u8, input: &mut impl BufRead) -> Result<(), String> {
+        pub fn all_years() -> Vec<u16> {
+            vec![$(
+                stringify!($year)[1..].parse::<u16>().unwrap(),
+            )+]
+        }
+
+        pub fn all_days_for_year(year: u16) -> Vec<u8> {
+            $(
+                if year == stringify!($year)[1..].parse::<u16>().unwrap() {
+                    return vec![$(
+                        stringify!($day)[3..].parse::<u8>().unwrap(),
+                    )+]
+                }
+            )+
+            vec![]
+        }
+
+        pub fn run_solution(year: u16, day: u8, input: &mut impl BufRead) {
             match year {
                 $(
                     y if y == stringify!($year)[1..].parse::<u16>().unwrap() => {
@@ -19,26 +36,14 @@ macro_rules! aoc_solutions {
                             $(
                                 d if d == stringify!($day)[3..].parse::<u8>().unwrap() => {
                                     println!("Day {} {}: ", day, y);
-                                    Ok(day::run_day(<$year::$day::Solution as AoCDay>::with_input(input)))
+                                    day::run_day(<$year::$day::Solution as AoCDay>::with_input(input))
                                 },
                             )+
-                            _ => {
-                                let mut days: Vec<&str> = vec![];
-                                $(
-                                    days.push(&stringify!($day)[3..]);
-                                )+
-                                Err(format!("Day {} {} is not implemented yet, days with solutions in {}: {}", day, y, y, days.join(", ")))
-                            },
+                            _ => panic!("Day {} {} is not implemented yet", day, y),
                         }
                     }
                 )+
-                _ => {
-                    let mut years: Vec<&str> = vec![];
-                    $(
-                        years.push(&stringify!($year)[1..]);
-                    )+
-                    Err(format!("Year {} is not implemented yet, years with solutions: {}", year, years.join(", ")))
-                },
+                _ => panic!("Year {} is not implemented yet", year),
             }
         }
     };
