@@ -1,8 +1,9 @@
-use std::{io::{BufRead, BufReader}, fs::File};
+use std::io::BufRead;
 
 use crate::day::AoCDay;
 
 mod day;
+pub mod input;
 
 mod y2022 {
     pub mod day1;
@@ -44,8 +45,3 @@ macro_rules! aoc_solutions {
 }
 
 aoc_solutions!((y2022: day1));
-
-pub fn get_input(year: u16, day: u8) -> Result<impl BufRead, &'static str> {
-    let path = format!("input/{}/day{}.txt", year, day);
-    Ok(BufReader::new(File::open(path).unwrap()))
-}
