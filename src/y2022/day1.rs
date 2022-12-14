@@ -31,3 +31,33 @@ impl AoCDay for Solution {
             .to_string()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::input;
+
+    #[test]
+    fn test_part1_example() {
+        let day = Solution::with_input(input!(example: 2022 1));
+        assert_eq!(day.part1(), "24000");
+    }
+
+    #[test]
+    fn test_part1_input() {
+        let day = Solution::with_input(input!(input: 2022 1));
+        assert_eq!(day.part1(), "68442");
+    }
+
+    #[test]
+    fn test_part2_example() {
+        let day = Solution::with_input(input!(example: 2022 1));
+        assert_eq!(day.part2(), "45000");
+    }
+
+    #[test]
+    fn test_part2_input() {
+        let day = Solution::with_input(input!(input: 2022 1));
+        assert_eq!(day.part2(), "204837");
+    }
+}
