@@ -11,13 +11,13 @@ mod y2022 {
 
 macro_rules! aoc_solutions {
     ($(($year:ident: $($day:ident),+)),+) => {
-        pub fn all_years() -> Vec<u16> {
+        pub fn years() -> Vec<u16> {
             vec![$(
                 stringify!($year)[1..].parse::<u16>().unwrap(),
             )+]
         }
 
-        pub fn all_days_for_year(year: u16) -> Vec<u8> {
+        pub fn days_for_year(year: u16) -> Vec<u8> {
             $(
                 if year == stringify!($year)[1..].parse::<u16>().unwrap() {
                     return vec![$(
@@ -28,7 +28,7 @@ macro_rules! aoc_solutions {
             vec![]
         }
 
-        pub fn run_solution(year: u16, day: u8, part: &Part,input: &mut impl BufRead) {
+        pub fn run(year: u16, day: u8, part: &Part,input: &mut impl BufRead) {
             match year {
                 $(
                     y if y == stringify!($year)[1..].parse::<u16>().unwrap() => {
@@ -49,4 +49,8 @@ macro_rules! aoc_solutions {
     };
 }
 
-aoc_solutions!((y2022: day1));
+pub struct Solutions {}
+
+impl Solutions {
+    aoc_solutions!((y2022: day1));
+}

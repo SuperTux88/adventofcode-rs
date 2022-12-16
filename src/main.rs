@@ -2,8 +2,7 @@ use clap::Parser;
 use std::io::{self, BufReader};
 use std::process;
 
-use adventofcode::day::Part;
-use adventofcode::*;
+use adventofcode::{day::Part, input, Solutions};
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Advent of Code soltions in rust.", long_about = None)]
@@ -29,17 +28,17 @@ struct Args {
 fn main() {
     let args = Args::parse();
 
-    let all_days = all_days_for_year(args.year);
+    let all_days = Solutions::days_for_year(args.year);
 
     if let Some(day) = args.day {
         if all_days.contains(&day) {
             match &args.input {
                 Some(stdin) if stdin == "-" => {
                     let mut stdin = BufReader::new(io::stdin());
-                    run_solution(args.year, day, &args.part, &mut stdin)
+                    Solutions::run(args.year, day, &args.part, &mut stdin)
                 }
                 Some(path) => match input::read_input(path) {
-                    Ok(mut input) => run_solution(args.year, day, &args.part, &mut input),
+                    Ok(mut input) => Solutions::run(args.year, day, &args.part, &mut input),
                     Err(e) => exit_error(e),
                 },
                 None => run_solution_with_default_input(args.year, day, &args.part),
@@ -65,7 +64,7 @@ fn main() {
 
 fn run_solution_with_default_input(year: u16, day: u8, part: &Part) {
     match input::read_default_input(year, day) {
-        Ok(mut input) => run_solution(year, day, part, &mut input),
+        Ok(mut input) => Solutions::run(year, day, part, &mut input),
         Err(e) => exit_error(e),
     }
 }
@@ -77,7 +76,7 @@ fn exit_error(e: String) -> ! {
 
 fn parse_year(s: &str) -> Result<u16, String> {
     let year = s.parse().map_err(|_| format!("Invalid year: {}", s))?;
-    let all_years = all_years();
+    let all_years = Solutions::years();
     if all_years.contains(&year) {
         Ok(year)
     } else {
