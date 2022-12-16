@@ -1,6 +1,10 @@
 use std::{fmt::Display, io::BufRead, str::FromStr};
 
+use colored::Colorize;
+
 pub trait AoCDay {
+    fn title() -> &'static str;
+
     fn with_input(input: &mut impl BufRead) -> Self;
 
     fn part1(&self) -> String;
@@ -39,15 +43,19 @@ impl Display for Part {
 
 pub fn run_day(day: impl AoCDay, part: &Part) {
     match part {
-        Part::Part1 => print_part(part, day.part1()),
-        Part::Part2 => print_part(part, day.part2()),
         Part::Both => {
-            print_part(&Part::Part1, day.part1());
-            print_part(&Part::Part2, day.part2());
+            run_part(&day, &Part::Part1);
+            run_part(&day, &Part::Part2);
         }
+        part => run_part(&day, part),
     }
 }
 
-fn print_part(part: &Part, result: String) {
-    println!("Part {}: {}", part, result);
+fn run_part(day: &impl AoCDay, part: &Part) {
+    let result = match part {
+        Part::Part1 => day.part1(),
+        Part::Part2 => day.part2(),
+        Part::Both => unreachable!(),
+    };
+    println!("\tPart {}: {}", part, result.green());
 }

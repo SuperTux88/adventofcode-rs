@@ -1,6 +1,8 @@
-use clap::Parser;
 use std::io::{self, BufReader};
 use std::process;
+
+use clap::Parser;
+use colored::Colorize;
 
 use adventofcode::{day::Part, input, Solutions};
 
@@ -70,7 +72,7 @@ fn run_solution_with_default_input(year: u16, day: u8, part: &Part) {
 }
 
 fn exit_error(e: String) -> ! {
-    eprintln!("\x1b[31merror:\x1b[0m {}", e);
+    eprintln!("{} {}", "error:".red(), e);
     process::exit(1);
 }
 

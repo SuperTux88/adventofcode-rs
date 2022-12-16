@@ -7,6 +7,10 @@ pub struct Solution {
 }
 
 impl AoCDay for Solution {
+    fn title() -> &'static str {
+        "Calorie Counting"
+    }
+
     fn with_input(input: &mut impl BufRead) -> Self {
         let input_str = io::read_to_string(input).unwrap();
         let elves = input_str

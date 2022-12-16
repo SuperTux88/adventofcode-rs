@@ -1,5 +1,7 @@
 use std::io::BufRead;
 
+use colored::Colorize;
+
 use crate::day::{AoCDay, Part};
 
 pub mod day;
@@ -35,7 +37,8 @@ macro_rules! aoc_solutions {
                         match day {
                             $(
                                 d if d == stringify!($day)[3..].parse::<u8>().unwrap() => {
-                                    println!("Day {} {}: ", day, y);
+                                    println!("Day {} {}: {}",
+                                        day, y, <$year::$day::Solution as AoCDay>::title().white().bold());
                                     day::run_day(<$year::$day::Solution as AoCDay>::with_input(input), part)
                                 },
                             )+
