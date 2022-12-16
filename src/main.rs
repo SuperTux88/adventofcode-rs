@@ -2,11 +2,12 @@ use clap::Parser;
 use std::io::{self, BufReader};
 use std::process;
 
+use adventofcode::day::Part;
 use adventofcode::*;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Advent of Code soltions in rust.", long_about = None)]
-#[command(override_usage = "adventofcode [-y <year>] [-d <day>] [-i <input>]")]
+#[command(override_usage = "adventofcode [-y <year>] [-d <day>] [-p <part>] [-i <input>]")]
 struct Args {
     /// Year to execute
     #[arg(short, long, default_value_t = 2022, value_parser = parse_year)]
@@ -15,6 +16,10 @@ struct Args {
     /// Day to execute
     #[arg(short, long, value_parser = parse_day)]
     day: Option<u8>,
+
+    /// Part to execute
+    #[arg(short, long, default_value_t = Part::Both)]
+    part: Part,
 
     /// Input file to use, use '-' for stdin [default: input/<year>/day<day>.txt]
     #[arg(short, long)]
@@ -31,13 +36,13 @@ fn main() {
             match &args.input {
                 Some(stdin) if stdin == "-" => {
                     let mut stdin = BufReader::new(io::stdin());
-                    run_solution(args.year, day, &mut stdin)
+                    run_solution(args.year, day, &args.part, &mut stdin)
                 }
                 Some(path) => match input::read_input(path) {
-                    Ok(mut input) => run_solution(args.year, day, &mut input),
+                    Ok(mut input) => run_solution(args.year, day, &args.part, &mut input),
                     Err(e) => exit_error(e),
                 },
-                None => run_solution_with_default_input(args.year, day),
+                None => run_solution_with_default_input(args.year, day, &args.part),
             };
         } else {
             let all_days: Vec<String> = all_days.iter().map(|d| d.to_string()).collect();
@@ -53,14 +58,14 @@ fn main() {
             exit_error("--input can only be specified when --day is specified".to_string());
         }
         for day in all_days {
-            run_solution_with_default_input(args.year, day);
+            run_solution_with_default_input(args.year, day, &args.part);
         }
     }
 }
 
-fn run_solution_with_default_input(year: u16, day: u8) {
+fn run_solution_with_default_input(year: u16, day: u8, part: &Part) {
     match input::read_default_input(year, day) {
-        Ok(mut input) => run_solution(year, day, &mut input),
+        Ok(mut input) => run_solution(year, day, part, &mut input),
         Err(e) => exit_error(e),
     }
 }

@@ -1,8 +1,8 @@
 use std::io::BufRead;
 
-use crate::day::AoCDay;
+use crate::day::{AoCDay, Part};
 
-mod day;
+pub mod day;
 pub mod input;
 
 mod y2022 {
@@ -28,7 +28,7 @@ macro_rules! aoc_solutions {
             vec![]
         }
 
-        pub fn run_solution(year: u16, day: u8, input: &mut impl BufRead) {
+        pub fn run_solution(year: u16, day: u8, part: &Part,input: &mut impl BufRead) {
             match year {
                 $(
                     y if y == stringify!($year)[1..].parse::<u16>().unwrap() => {
@@ -36,7 +36,7 @@ macro_rules! aoc_solutions {
                             $(
                                 d if d == stringify!($day)[3..].parse::<u8>().unwrap() => {
                                     println!("Day {} {}: ", day, y);
-                                    day::run_day(<$year::$day::Solution as AoCDay>::with_input(input))
+                                    day::run_day(<$year::$day::Solution as AoCDay>::with_input(input), part)
                                 },
                             )+
                             _ => panic!("Day {} {} is not implemented yet", day, y),
