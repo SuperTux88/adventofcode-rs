@@ -32,3 +32,7 @@ macro_rules! input {
         &mut input::read_input(&format!("input/{}/example/day{}.txt", $year, $day)).unwrap()
     };
 }
+
+pub fn read_lines(input: impl BufRead) -> impl Iterator<Item = String> {
+    input.lines().map(|l| l.unwrap())
+}

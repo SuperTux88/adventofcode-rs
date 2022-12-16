@@ -7,6 +7,10 @@ use crate::day::{AoCDay, Part};
 pub mod day;
 pub mod input;
 
+mod y2021 {
+    pub mod day1;
+}
+
 mod y2022 {
     pub mod day1;
 }
@@ -55,5 +59,9 @@ macro_rules! aoc_solutions {
 pub struct Solutions {}
 
 impl Solutions {
-    aoc_solutions!((y2022: day1));
+    #[rustfmt::skip]
+    aoc_solutions!(
+        (y2021: day1),
+        (y2022: day1)
+    );
 }
