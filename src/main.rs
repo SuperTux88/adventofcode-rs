@@ -1,4 +1,5 @@
 use std::io::{self, BufReader};
+use std::path::PathBuf;
 use std::process;
 
 use clap::Parser;
@@ -25,6 +26,10 @@ struct Args {
     /// Input file to use, use '-' for stdin [default: input/<year>/day<day>.txt]
     #[arg(short, long)]
     input: Option<String>,
+
+    /// Download and cache input file
+    #[arg(long)]
+    download: bool,
 }
 
 fn main() {
@@ -39,11 +44,11 @@ fn main() {
                     let mut stdin = BufReader::new(io::stdin());
                     Solutions::run(args.year, day, &args.part, &mut stdin)
                 }
-                Some(path) => match input::read_input(path) {
+                Some(path) => match input::read_input(&PathBuf::from(path)) {
                     Ok(mut input) => Solutions::run(args.year, day, &args.part, &mut input),
                     Err(e) => exit_error(e),
                 },
-                None => run_solution_with_default_input(args.year, day, &args.part),
+                None => run_solution_with_default_input(args.year, day, &args.part, args.download),
             };
         } else {
             let all_days: Vec<String> = all_days.iter().map(|d| d.to_string()).collect();
@@ -59,13 +64,13 @@ fn main() {
             exit_error("--input can only be specified when --day is specified".to_string());
         }
         for day in all_days {
-            run_solution_with_default_input(args.year, day, &args.part);
+            run_solution_with_default_input(args.year, day, &args.part, args.download);
         }
     }
 }
 
-fn run_solution_with_default_input(year: u16, day: u8, part: &Part) {
-    match input::read_default_input(year, day) {
+fn run_solution_with_default_input(year: u16, day: u8, part: &Part, download: bool) {
+    match input::read_default_input(year, day, download) {
         Ok(mut input) => Solutions::run(year, day, part, &mut input),
         Err(e) => exit_error(e),
     }
