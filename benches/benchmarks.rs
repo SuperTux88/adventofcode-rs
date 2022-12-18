@@ -56,5 +56,5 @@ macro_rules! benchmarks {
 #[rustfmt::skip]
 benchmarks!(
     (Benchmark2021 / y2021: day1),
-    (Benchmark2022 / y2022: day1)
+    (Benchmark2022 / y2022: day1, day3)
 );

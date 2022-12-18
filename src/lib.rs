@@ -13,6 +13,7 @@ pub mod y2021 {
 
 pub mod y2022 {
     pub mod day1;
+    pub mod day3;
 }
 
 macro_rules! aoc_solutions {
@@ -62,6 +63,6 @@ impl Solutions {
     #[rustfmt::skip]
     aoc_solutions!(
         (y2021: day1),
-        (y2022: day1)
+        (y2022: day1, day3)
     );
 }
