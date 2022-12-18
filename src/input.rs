@@ -1,4 +1,5 @@
 use std::{
+    env,
     error::Error,
     fs::File,
     io::{BufRead, BufReader},
@@ -13,10 +14,10 @@ const AOC_SESSION_ENV_VAR: &str = "ADVENT_OF_CODE_SESSION";
 ///
 /// ```
 /// # use adventofcode::input;
-/// let path = input::get_default_input_path(2022, 1);
+/// let path = input::get_input_subpath(2022, 1);
 /// # assert_eq!(path.as_path().display().to_string(), "input/2022/day1.txt");
 /// ```
-pub fn get_default_input_path(year: u16, day: u8) -> PathBuf {
+pub fn get_input_subpath(year: u16, day: u8) -> PathBuf {
     PathBuf::from(format!("input/{}/day{}.txt", year, day))
 }
 
@@ -32,31 +33,31 @@ pub fn read_input(path: &PathBuf) -> Result<impl BufRead, String> {
     Ok(BufReader::new(file))
 }
 
-/// Reads the default input file for the given year and day or downloads it.
-/// The input file is downloaded if it doesn't exist or if `download` is true.
-pub fn read_default_input(year: u16, day: u8, download: bool) -> Result<impl BufRead, String> {
-    let input_path = if download {
-        get_cache_path_and_download_if_needed(year, day)?
+/// Returns the path to the input file for the given year and day.
+/// If `download` is true or if the default file doesn't exist,
+/// the input is downloaded and the path to the download is returned.
+pub fn get_default_input_path(year: u16, day: u8, download: bool) -> Result<PathBuf, String> {
+    if download {
+        get_cache_path_and_download_if_needed(year, day)
     } else {
-        match get_default_input_path(year, day) {
-            path if path.exists() => path,
+        match get_input_subpath(year, day) {
+            path if path.exists() => Ok(path),
             path => get_cache_path_and_download_if_needed(year, day).map_err(|error| {
                 format!(
                     "Input file ({}) doesn't exist and error downloading input: {}",
                     path.as_path().display(),
                     error
                 )
-            })?,
+            }),
         }
-    };
-    read_input(&input_path)
+    }
 }
 
 /// Returns the AoC session cookie string.
 /// The session cookie is read from the environment variable `ADVENT_OF_CODE_SESSION` or from the
 /// file `~/.adventofcode.session` or `~/.config/adventofcode.session`.
 fn get_aoc_session() -> Result<String, String> {
-    match std::env::var(AOC_SESSION_ENV_VAR) {
+    match env::var(AOC_SESSION_ENV_VAR) {
         Ok(session) => Ok(session),
         Err(_) => {
             let session_files = vec![
@@ -123,10 +124,7 @@ fn download_input(year: u16, day: u8, input_path: &PathBuf) -> Result<(), Box<dy
 /// Gets the path to the input file for the given year and day, downloading it if it doesn't exist.
 fn get_cache_path_and_download_if_needed(year: u16, day: u8) -> Result<PathBuf, String> {
     let input_path = cache_dir()
-        .map(|d| {
-            d.join("adventofcode")
-                .join(get_default_input_path(year, day))
-        })
+        .map(|d| d.join("adventofcode").join(get_input_subpath(year, day)))
         .ok_or("Error getting cache directory")?;
     if let Some(parent) = input_path.parent() {
         std::fs::create_dir_all(parent).map_err(|error| {
@@ -154,7 +152,7 @@ fn get_cache_path_and_download_if_needed(year: u16, day: u8) -> Result<PathBuf, 
 #[macro_export]
 macro_rules! input {
     (input: $year:tt $day:tt) => {
-        &mut input::read_input(&input::get_default_input_path($year, $day)).unwrap()
+        &mut input::read_input(&input::get_input_subpath($year, $day)).unwrap()
     };
     (example: $year:tt $day:tt) => {{
         let example_path = format!("input/{}/example/day{}.txt", $year, $day);

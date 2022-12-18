@@ -1,6 +1,13 @@
-use std::{fmt::Display, io::BufRead, str::FromStr};
+use std::{
+    fmt::Display,
+    io::BufRead,
+    str::FromStr,
+    time::{Duration, Instant},
+};
 
 use colored::Colorize;
+
+use crate::output;
 
 pub trait AoCDay {
     fn title() -> &'static str;
@@ -41,21 +48,20 @@ impl Display for Part {
     }
 }
 
-pub fn run_day(day: impl AoCDay, part: &Part) {
+pub fn run_day(day: impl AoCDay, part: &Part) -> (Duration, Duration) {
     match part {
-        Part::Both => {
-            run_part(&day, &Part::Part1);
-            run_part(&day, &Part::Part2);
-        }
-        part => run_part(&day, part),
+        Part::Both => (run_part(&day, &Part::Part1), run_part(&day, &Part::Part2)),
+        part => (run_part(&day, part), Duration::ZERO),
     }
 }
 
-fn run_part(day: &impl AoCDay, part: &Part) {
+fn run_part(day: &impl AoCDay, part: &Part) -> Duration {
+    let start = Instant::now();
     let result = match part {
         Part::Part1 => day.part1(),
         Part::Part2 => day.part2(),
         Part::Both => unreachable!(),
     };
-    println!("\tPart {}: {}", part, result.green());
+    output::print(format!("\tPart {}: {}", part, result.green()));
+    start.elapsed()
 }
