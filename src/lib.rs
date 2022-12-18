@@ -7,11 +7,11 @@ use crate::day::{AoCDay, Part};
 pub mod day;
 pub mod input;
 
-mod y2021 {
+pub mod y2021 {
     pub mod day1;
 }
 
-mod y2022 {
+pub mod y2022 {
     pub mod day1;
 }
 
