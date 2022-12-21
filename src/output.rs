@@ -1,17 +1,15 @@
-static mut OUTPUT: bool = true;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static OUTPUT: AtomicBool = AtomicBool::new(true);
 
 /// Disables output to stdout for benchmark mode
 pub fn disable_output() {
-    unsafe {
-        OUTPUT = false;
-    }
+    OUTPUT.store(false, Ordering::Relaxed);
 }
 
 /// Prints a message to stdout if output is enabled
 pub fn print(msg: String) {
-    unsafe {
-        if OUTPUT {
-            println!("{}", msg);
-        }
+    if OUTPUT.load(Ordering::Relaxed) {
+        println!("{}", msg);
     }
 }
