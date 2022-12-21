@@ -7,6 +7,10 @@ use std::{
 };
 
 use dirs::{cache_dir, config_dir, home_dir};
+use reqwest::{
+    blocking::Client,
+    header::{COOKIE, USER_AGENT},
+};
 
 const AOC_SESSION_ENV_VAR: &str = "ADVENT_OF_CODE_SESSION";
 
@@ -96,15 +100,13 @@ fn get_aoc_session() -> Result<String, String> {
 fn download_input(year: u16, day: u8, input_path: &PathBuf) -> Result<(), Box<dyn Error>> {
     let url = format!("https://adventofcode.com/{}/day/{}/input", year, day);
 
-    let client = reqwest::blocking::Client::builder()
-        .gzip(true)
-        .build()
-        .unwrap();
+    let client = Client::builder().gzip(true).build().unwrap();
     let mut response = client
         .get(url)
+        .header(COOKIE, format!("session={}", get_aoc_session()?.trim()))
         .header(
-            reqwest::header::COOKIE,
-            format!("session={}", get_aoc_session()?.trim()),
+            USER_AGENT,
+            "AoC solutions at github.com/SuperTux88/adventofcode-rs",
         )
         .send()?
         .error_for_status()?;
