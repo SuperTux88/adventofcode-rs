@@ -8,6 +8,10 @@ pub mod day;
 pub mod input;
 pub mod output;
 
+pub mod common {
+    pub mod parsing;
+}
+
 macro_rules! aoc_solutions {
     ($(($year:ident: $($day:ident),+)),+) => {
         $(

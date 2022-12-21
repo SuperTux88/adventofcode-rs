@@ -159,16 +159,3 @@ macro_rules! input {
         &mut input::read_input(&std::path::PathBuf::from(example_path)).unwrap()
     }};
 }
-
-/// Reads the input to a line iterator.
-///
-/// ```
-/// # use adventofcode::input;
-/// let mut lines = input::read_lines("aaa\nbbb".as_bytes());
-/// # assert_eq!(lines.next(), Some("aaa".to_string()));
-/// # assert_eq!(lines.next(), Some("bbb".to_string()));
-/// # assert_eq!(lines.next(), None);
-/// ```
-pub fn read_lines(input: impl BufRead) -> impl Iterator<Item = String> {
-    input.lines().map(|l| l.unwrap())
-}

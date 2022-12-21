@@ -1,6 +1,6 @@
 use std::io::BufRead;
 
-use crate::{day::AoCDay, input};
+use crate::{common::parsing::lines_vec, day::AoCDay};
 
 pub struct Solution {
     lines: Vec<String>,
@@ -23,7 +23,7 @@ impl AoCDay for Solution {
 
     fn with_input(input: &mut impl BufRead) -> Self {
         Self {
-            lines: input::read_lines(input).collect(),
+            lines: lines_vec(input),
         }
     }
 

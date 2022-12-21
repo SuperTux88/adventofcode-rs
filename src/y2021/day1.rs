@@ -1,6 +1,6 @@
 use std::io::BufRead;
 
-use crate::{day::AoCDay, input};
+use crate::{common::parsing::parse_lines_vec, day::AoCDay};
 
 pub struct Solution {
     depths: Vec<u32>,
@@ -21,12 +21,9 @@ impl AoCDay for Solution {
     }
 
     fn with_input(input: &mut impl BufRead) -> Self {
-        let depths = input::read_lines(input)
-            .filter(|l| !l.is_empty())
-            .map(|line| line.parse::<u32>().unwrap())
-            .collect();
-
-        Self { depths }
+        Self {
+            depths: parse_lines_vec(input),
+        }
     }
 
     fn part1(&self) -> String {
