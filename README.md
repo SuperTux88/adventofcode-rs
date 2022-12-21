@@ -1,9 +1,9 @@
-# Advent of Code - Rust 🦀
-Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solutions can be found [here](https://github.com/SuperTux88/adventofcode)
+# 🎄 Advent of Code - Rust 🦀
+Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solutions can be found [here](https://github.com/SuperTux88/adventofcode).
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2022 - 36 ⭐
+  2022 - 42 ⭐
 </h1>
 <a href="src/y2022/day1.rs">
   <img src="AoCTiles/2022/01.png" width="161px">
@@ -14,7 +14,7 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 <a href="src/y2022/day3.rs">
   <img src="AoCTiles/2022/03.png" width="161px">
 </a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day4.scala">
+<a href="src/y2022/day4.rs">
   <img src="AoCTiles/2022/04.png" width="161px">
 </a>
 <a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day5.scala">
@@ -56,8 +56,17 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 <a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day17.scala">
   <img src="AoCTiles/2022/17.png" width="161px">
 </a>
-<a href="None">
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day18.scala">
   <img src="AoCTiles/2022/18.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day19.scala">
+  <img src="AoCTiles/2022/19.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day20.scala">
+  <img src="AoCTiles/2022/20.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2022/Day21.scala">
+  <img src="AoCTiles/2022/21.png" width="161px">
 </a>
 <h1 align="center">
   2021 - 50 ⭐

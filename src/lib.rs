@@ -75,5 +75,5 @@ macro_rules! aoc_solutions {
 #[rustfmt::skip]
 aoc_solutions!(
     (y2021: day1),
-    (y2022: day1, day3)
+    (y2022: day1, day3, day4)
 );
