@@ -27,21 +27,17 @@ impl AoCDay for Solution {
 }
 
 fn parse_snafu(input: &str) -> u64 {
-    input
-        .chars()
-        .enumerate()
-        .map(|(i, c)| {
-            let value = match c {
-                '2' => 2,
-                '1' => 1,
-                '0' => 0,
-                '-' => -1,
-                '=' => -2,
-                _ => panic!("Invalid character: {}", c),
-            };
-            value * 5i64.pow((input.len() - i - 1) as u32)
-        })
-        .sum::<i64>() as u64
+    input.chars().enumerate().fold(0i64, |acc, (i, c)| {
+        let value = match c {
+            '2' => 2,
+            '1' => 1,
+            '0' => 0,
+            '-' => -1,
+            '=' => -2,
+            _ => panic!("Invalid character: {}", c),
+        };
+        acc + value * 5i64.pow((input.len() - i - 1) as u32)
+    }) as u64
 }
 
 fn to_snafu(value: u64) -> String {
