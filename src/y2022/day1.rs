@@ -23,7 +23,7 @@ impl AoCDay for Solution {
     }
 
     fn part1(&self) -> String {
-        self.elves_calories.last().unwrap().clone().to_string()
+        self.elves_calories.last().unwrap().to_string()
     }
 
     fn part2(&self) -> String {
