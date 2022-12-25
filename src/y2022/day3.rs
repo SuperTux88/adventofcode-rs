@@ -6,16 +6,6 @@ pub struct Solution {
     lines: Vec<String>,
 }
 
-impl Solution {
-    fn priority(&self, item: char) -> u8 {
-        if item.is_lowercase() {
-            (item as u8) - 97 + 1
-        } else {
-            (item as u8) - 65 + 27
-        }
-    }
-}
-
 impl AoCDay for Solution {
     fn title() -> &'static str {
         "Rucksack Reorganization"
@@ -34,7 +24,7 @@ impl AoCDay for Solution {
                 let (a, b) = line.split_at(line.len() / 2);
                 a.chars().find(|&i| b.contains(i)).unwrap()
             })
-            .map(|item| self.priority(item) as u32)
+            .map(|item| priority(item) as u32)
             .sum::<u32>()
             .to_string()
     }
@@ -48,9 +38,17 @@ impl AoCDay for Solution {
                     .find(|&i| chunk[1].contains(i) && chunk[2].contains(i))
                     .unwrap()
             })
-            .map(|item| self.priority(item) as u32)
+            .map(|item| priority(item) as u32)
             .sum::<u32>()
             .to_string()
+    }
+}
+
+fn priority(item: char) -> u8 {
+    if item.is_lowercase() {
+        (item as u8) - 97 + 1
+    } else {
+        (item as u8) - 65 + 27
     }
 }
 
@@ -58,6 +56,14 @@ impl AoCDay for Solution {
 mod tests {
     use super::*;
     use crate::input;
+
+    #[test]
+    fn test_priority() {
+        assert_eq!(priority('a'), 1);
+        assert_eq!(priority('z'), 26);
+        assert_eq!(priority('A'), 27);
+        assert_eq!(priority('Z'), 52);
+    }
 
     #[test]
     fn test_part1_example() {
