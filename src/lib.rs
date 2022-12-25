@@ -44,15 +44,15 @@ macro_rules! aoc_solutions {
 
             pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead)
                     -> (std::time::Duration, std::time::Duration, std::time::Duration, std::time::Duration) {
-                match year {
+                match format!("y{}", year).as_str() {
                     $(
-                        y if y == stringify!($year)[1..].parse::<u16>().unwrap() => {
-                            match day {
+                        stringify!($year) => {
+                            match format!("day{}", day).as_str() {
                                 $(
-                                    d if d == stringify!($day)[3..].parse::<u8>().unwrap() => {
+                                    stringify!($day) => {
                                         output::print(format!(
                                             "Day {} {}: {}",
-                                            day, y, <$year::$day::Solution as AoCDay>::title().white().bold()
+                                            day, year, <$year::$day::Solution as AoCDay>::title().white().bold()
                                         ));
                                         let start = std::time::Instant::now();
                                         let solution = <$year::$day::Solution as AoCDay>::with_input(input);
@@ -61,7 +61,7 @@ macro_rules! aoc_solutions {
                                         (parsed_time, part1_time, part2_time, start.elapsed())
                                     },
                                 )+
-                                _ => panic!("Day {} {} is not implemented yet", day, y),
+                                _ => panic!("Day {} {} is not implemented yet", day, year),
                             }
                         }
                     )+
