@@ -9,6 +9,7 @@ pub mod input;
 pub mod output;
 
 pub mod common {
+    pub mod grid;
     pub mod parsing;
 }
 
@@ -74,6 +75,7 @@ macro_rules! aoc_solutions {
 
 #[rustfmt::skip]
 aoc_solutions!(
+    (y2016: day1),
     (y2021: day1),
     (y2022: day1, day3, day4, day6, day25)
 );

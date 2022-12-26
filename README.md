@@ -159,6 +159,84 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
   <img src="AoCTiles/2021/25.png" width="161px">
 </a>
 <h1 align="center">
+  2016 - 50 ⭐
+</h1>
+<a href="src/y2016/day1.rs">
+  <img src="AoCTiles/2016/01.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day2.scala">
+  <img src="AoCTiles/2016/02.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day3.scala">
+  <img src="AoCTiles/2016/03.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day4.scala">
+  <img src="AoCTiles/2016/04.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day5.scala">
+  <img src="AoCTiles/2016/05.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day6.scala">
+  <img src="AoCTiles/2016/06.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day7.scala">
+  <img src="AoCTiles/2016/07.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day8.scala">
+  <img src="AoCTiles/2016/08.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day9.scala">
+  <img src="AoCTiles/2016/09.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day10.scala">
+  <img src="AoCTiles/2016/10.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day11.scala">
+  <img src="AoCTiles/2016/11.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day12.scala">
+  <img src="AoCTiles/2016/12.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day13.scala">
+  <img src="AoCTiles/2016/13.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day14.scala">
+  <img src="AoCTiles/2016/14.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day15.scala">
+  <img src="AoCTiles/2016/15.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day16.scala">
+  <img src="AoCTiles/2016/16.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day17.scala">
+  <img src="AoCTiles/2016/17.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day18.scala">
+  <img src="AoCTiles/2016/18.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day19.scala">
+  <img src="AoCTiles/2016/19.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day20.scala">
+  <img src="AoCTiles/2016/20.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day21.scala">
+  <img src="AoCTiles/2016/21.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day22.scala">
+  <img src="AoCTiles/2016/22.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day23.scala">
+  <img src="AoCTiles/2016/23.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day24.scala">
+  <img src="AoCTiles/2016/24.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day25.scala">
+  <img src="AoCTiles/2016/25.png" width="161px">
+</a>
+<h1 align="center">
   2020 - 50 ⭐
 </h1>
 <a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2020/Day1.scala">
@@ -391,84 +469,6 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 </a>
 <a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2018/Day25.scala">
   <img src="AoCTiles/2018/25.png" width="161px">
-</a>
-<h1 align="center">
-  2016 - 50 ⭐
-</h1>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day1.scala">
-  <img src="AoCTiles/2016/01.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day2.scala">
-  <img src="AoCTiles/2016/02.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day3.scala">
-  <img src="AoCTiles/2016/03.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day4.scala">
-  <img src="AoCTiles/2016/04.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day5.scala">
-  <img src="AoCTiles/2016/05.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day6.scala">
-  <img src="AoCTiles/2016/06.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day7.scala">
-  <img src="AoCTiles/2016/07.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day8.scala">
-  <img src="AoCTiles/2016/08.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day9.scala">
-  <img src="AoCTiles/2016/09.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day10.scala">
-  <img src="AoCTiles/2016/10.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day11.scala">
-  <img src="AoCTiles/2016/11.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day12.scala">
-  <img src="AoCTiles/2016/12.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day13.scala">
-  <img src="AoCTiles/2016/13.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day14.scala">
-  <img src="AoCTiles/2016/14.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day15.scala">
-  <img src="AoCTiles/2016/15.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day16.scala">
-  <img src="AoCTiles/2016/16.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day17.scala">
-  <img src="AoCTiles/2016/17.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day18.scala">
-  <img src="AoCTiles/2016/18.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day19.scala">
-  <img src="AoCTiles/2016/19.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day20.scala">
-  <img src="AoCTiles/2016/20.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day21.scala">
-  <img src="AoCTiles/2016/21.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day22.scala">
-  <img src="AoCTiles/2016/22.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day23.scala">
-  <img src="AoCTiles/2016/23.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day24.scala">
-  <img src="AoCTiles/2016/24.png" width="161px">
-</a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2016/Day25.scala">
-  <img src="AoCTiles/2016/25.png" width="161px">
 </a>
 <h1 align="center">
   2015 - 50 ⭐

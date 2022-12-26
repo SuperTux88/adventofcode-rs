@@ -54,8 +54,8 @@ impl AoCDay for Solution {
     }
 
     fn with_input(input: &mut impl BufRead) -> Self {
-        let input_str = io::read_to_string(input).unwrap();
-        let (_, pairs) = pairs(input_str.as_str()).unwrap();
+        let input = io::read_to_string(input).unwrap();
+        let (_, pairs) = pairs(input.as_str()).unwrap();
         Self { pairs }
     }
 
