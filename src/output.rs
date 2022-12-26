@@ -10,6 +10,13 @@ pub fn disable_output() {
 /// Prints a message to stdout if output is enabled
 pub fn print(msg: String) {
     if OUTPUT.load(Ordering::Relaxed) {
+        print!("{}", msg);
+    }
+}
+
+/// Prints a message with newline to stdout if output is enabled
+pub fn println(msg: String) {
+    if OUTPUT.load(Ordering::Relaxed) {
         println!("{}", msg);
     }
 }

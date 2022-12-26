@@ -50,7 +50,7 @@ macro_rules! aoc_solutions {
                             match format!("day{}", day).as_str() {
                                 $(
                                     stringify!($day) => {
-                                        output::print(format!(
+                                        output::println(format!(
                                             "Day {} {}: {}",
                                             day, year, <$year::$day::Solution as AoCDay>::title().white().bold()
                                         ));
