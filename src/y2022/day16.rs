@@ -14,6 +14,7 @@ use nom::{
     IResult,
 };
 use pathfinding::prelude::bfs;
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::day::AoCDay;
 
@@ -116,8 +117,26 @@ impl AoCDay for Solution {
     }
 
     fn part2(&self) -> String {
-        //todo!();
-        "TODO".to_string()
+        let max_pressures_26 = self.max_pressure(26);
+        let valve_with_flow_keys = self
+            .valves_with_flow
+            .keys()
+            .cloned()
+            .collect::<BTreeSet<u16>>();
+        let pressures_with_elephant = max_pressures_26.par_iter().map(|(open, pressure)| {
+            let elephant_valves = valve_with_flow_keys.difference(open);
+            elephant_valves
+                .powerset()
+                .flat_map(|elephant| {
+                    let elephant_valves = BTreeSet::from_iter(elephant.into_iter().cloned());
+                    max_pressures_26
+                        .get(&elephant_valves)
+                        .map(|elephant_pressure| elephant_pressure + pressure)
+                })
+                .max()
+                .unwrap()
+        });
+        pressures_with_elephant.max().unwrap().to_string()
     }
 }
 
@@ -216,14 +235,12 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn test_part2_example() {
         let day = Solution::with_input(input!(example: 2022 16));
         assert_eq!(day.part2(), "1707");
     }
 
     #[test]
-    #[ignore]
     fn test_part2_input() {
         let day = Solution::with_input(input!(input: 2022 16));
         assert_eq!(day.part2(), "2528");
