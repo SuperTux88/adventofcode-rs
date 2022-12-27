@@ -13,10 +13,6 @@ use nom::{
 
 use crate::day::AoCDay;
 
-pub struct Solution {
-    pairs: Vec<Pair>,
-}
-
 struct Pair {
     range_a: RangeInclusive<u32>,
     range_b: RangeInclusive<u32>,
@@ -46,6 +42,10 @@ fn pair(input: &str) -> IResult<&str, Pair> {
 }
 fn pairs(input: &str) -> IResult<&str, Vec<Pair>> {
     separated_list1(newline, pair)(input)
+}
+
+pub struct Solution {
+    pairs: Vec<Pair>,
 }
 
 impl AoCDay for Solution {

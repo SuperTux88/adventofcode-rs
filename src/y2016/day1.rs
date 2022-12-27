@@ -27,10 +27,6 @@ struct Instruction {
     distance: u16,
 }
 
-pub struct Solution {
-    instructions: Vec<Instruction>,
-}
-
 fn turn(input: &str) -> IResult<&str, Turn> {
     let (input, turn) = anychar(input)?;
     Ok((
@@ -48,6 +44,10 @@ fn instruction(input: &str) -> IResult<&str, Instruction> {
 }
 fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
     separated_list1(tag(", "), instruction)(input)
+}
+
+pub struct Solution {
+    instructions: Vec<Instruction>,
 }
 
 impl AoCDay for Solution {

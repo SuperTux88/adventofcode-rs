@@ -9,16 +9,6 @@ pub struct Solution {
     datastream: Vec<char>,
 }
 
-impl Solution {
-    fn find_start(&self, marker_size: usize) -> usize {
-        self.datastream
-            .windows(marker_size)
-            .position(|w| w.iter().collect::<HashSet<&char>>().len() == marker_size)
-            .unwrap()
-            + marker_size
-    }
-}
-
 impl AoCDay for Solution {
     fn title() -> &'static str {
         "Tuning Trouble"
@@ -39,6 +29,16 @@ impl AoCDay for Solution {
 
     fn part2(&self) -> String {
         self.find_start(14).to_string()
+    }
+}
+
+impl Solution {
+    fn find_start(&self, marker_size: usize) -> usize {
+        self.datastream
+            .windows(marker_size)
+            .position(|w| w.iter().collect::<HashSet<&char>>().len() == marker_size)
+            .unwrap()
+            + marker_size
     }
 }
 
