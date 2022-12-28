@@ -4,6 +4,7 @@ use glam::IVec2;
 
 pub mod directions;
 pub mod distance;
+pub mod minmax;
 pub mod walk;
 
 pub fn parse_set(lines: impl Iterator<Item = String>) -> HashSet<IVec2> {
@@ -19,6 +20,20 @@ pub fn parse_set(lines: impl Iterator<Item = String>) -> HashSet<IVec2> {
                 .collect::<HashSet<IVec2>>()
         })
         .collect()
+}
+
+pub fn print_set(set: &HashSet<IVec2>) {
+    let (min, max) = minmax::minmax_ivec2(set.iter());
+    for y in min.y..=max.y {
+        for x in min.x..=max.x {
+            if set.contains(&IVec2::new(x, y)) {
+                print!("#");
+            } else {
+                print!(" ");
+            }
+        }
+        println!();
+    }
 }
 
 #[cfg(test)]
