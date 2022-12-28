@@ -2,6 +2,7 @@ use std::{collections::HashSet, io::BufRead};
 
 use glam::IVec2;
 use itertools::Itertools;
+use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::{
     common::{
@@ -51,24 +52,35 @@ impl AoCDay for Solution {
     }
 
     fn part2(&self) -> String {
-        todo!();
+        let mut elves = self.elves.clone();
+        for round in 0.. {
+            if move_round(&mut elves, round) == 0 {
+                return (round + 1).to_string();
+            }
+        }
+        unreachable!();
     }
 }
 
-fn move_round(elves: &mut HashSet<IVec2>, round: u16) {
+fn move_round(elves: &mut HashSet<IVec2>, round: u16) -> u16 {
     let preferred_targets = elves
-        .iter()
-        .filter_map(|elf| get_prefered_target(elves, elf, round).map(|target| (*elf, target)));
+        .par_iter()
+        .filter_map(|elf| get_prefered_target(elves, elf, round).map(|target| (*elf, target)))
+        .collect::<Vec<(IVec2, IVec2)>>();
 
+    let mut moves = 0;
     preferred_targets
+        .iter()
         .into_group_map_by(|(_, target)| *target)
         .into_iter()
         .for_each(|(target, from)| {
             if from.len() == 1 {
                 elves.remove(&from[0].0);
                 elves.insert(target);
+                moves += 1;
             }
         });
+    moves
 }
 
 fn get_prefered_target(elves: &HashSet<IVec2>, elf: &IVec2, round: u16) -> Option<IVec2> {
@@ -105,14 +117,12 @@ mod tests {
     }
 
     #[test]
-    #[ignore]
     fn test_part2_example() {
         let day = Solution::with_input(input!(example: 2022 23));
         assert_eq!(day.part2(), "20");
     }
 
     #[test]
-    #[ignore]
     fn test_part2_input() {
         let day = Solution::with_input(input!(input: 2022 23));
         assert_eq!(day.part2(), "1008");
