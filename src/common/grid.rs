@@ -24,8 +24,11 @@ pub fn parse_set(lines: impl Iterator<Item = String>) -> HashSet<IVec2> {
 
 pub fn print_set(set: &HashSet<IVec2>) {
     let (min, max) = minmax::minmax_ivec2(set.iter());
-    for y in min.y..=max.y {
-        for x in min.x..=max.x {
+    print_set_range(set, (min, max));
+}
+pub fn print_set_range(set: &HashSet<IVec2>, range: (IVec2, IVec2)) {
+    for y in range.0.y..=range.1.y {
+        for x in range.0.x..=range.1.x {
             if set.contains(&IVec2::new(x, y)) {
                 print!("#");
             } else {
