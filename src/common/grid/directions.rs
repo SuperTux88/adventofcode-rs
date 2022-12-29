@@ -32,6 +32,18 @@ pub enum Direction {
     Left = 3,
 }
 
+impl From<char> for Direction {
+    fn from(c: char) -> Self {
+        match c {
+            '^' | 'N' | 'U' => Direction::Up,
+            '>' | 'E' | 'R' => Direction::Right,
+            'v' | 'S' | 'D' => Direction::Down,
+            '<' | 'W' | 'L' => Direction::Left,
+            _ => panic!("Invalid direction: {}", c),
+        }
+    }
+}
+
 #[derive(Debug)]
 pub enum Turn {
     Left,
