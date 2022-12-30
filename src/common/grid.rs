@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 use glam::IVec2;
 
@@ -10,7 +10,7 @@ pub mod walk;
 pub fn parse_set(lines: impl Iterator<Item = String>) -> HashSet<IVec2> {
     lines
         .enumerate()
-        .flat_map(|(y, line)| {
+        .flat_map(move |(y, line)| {
             line.chars()
                 .enumerate()
                 .filter_map(move |(x, c)| match c {
@@ -18,6 +18,21 @@ pub fn parse_set(lines: impl Iterator<Item = String>) -> HashSet<IVec2> {
                     _ => None,
                 })
                 .collect::<HashSet<IVec2>>()
+        })
+        .collect()
+}
+
+pub fn parse_map<T>(
+    lines: impl Iterator<Item = String>,
+    parse_char: fn(char) -> T,
+) -> HashMap<IVec2, T> {
+    lines
+        .enumerate()
+        .flat_map(move |(y, line)| {
+            line.chars()
+                .enumerate()
+                .map(move |(x, c)| (IVec2::new(x as i32, y as i32), parse_char(c)))
+                .collect::<HashMap<IVec2, T>>()
         })
         .collect()
 }

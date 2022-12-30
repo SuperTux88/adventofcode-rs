@@ -72,7 +72,7 @@ impl AoCDay for Solution {
                 )
             },
         );
-        target.manhattan_distance(IVec2::ZERO).to_string()
+        target.manhattan_distance(&IVec2::ZERO).to_string()
     }
 
     fn part2(&self) -> String {
@@ -84,7 +84,7 @@ impl AoCDay for Solution {
             direction = direction.turn(&inst.turn);
             for _ in 0..inst.distance {
                 if !visited.insert(current) {
-                    return current.manhattan_distance(IVec2::ZERO).to_string();
+                    return current.manhattan_distance(&IVec2::ZERO).to_string();
                 }
                 current = current.move_step(direction);
             }
