@@ -18,16 +18,15 @@ pub fn is_debug_enabled() -> bool {
     DEBUG.load(Ordering::Relaxed)
 }
 
-/// Prints a message to stdout if output is enabled
-pub fn print(msg: String) {
-    if OUTPUT.load(Ordering::Relaxed) {
-        print!("{}", msg);
-    }
-}
-
 /// Prints a message with newline to stdout if output is enabled
 pub fn println(msg: String) {
     if OUTPUT.load(Ordering::Relaxed) {
         println!("{}", msg);
+    }
+}
+
+pub fn println_debug(msg: String) {
+    if DEBUG.load(Ordering::Relaxed) {
+        println!("│  {}", msg);
     }
 }

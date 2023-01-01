@@ -46,14 +46,17 @@ pub fn print_set(set: &HashSet<IVec2>) {
 pub fn print_set_range(set: &HashSet<IVec2>, range: (IVec2, IVec2)) {
     if output::is_debug_enabled() {
         for y in range.0.y..=range.1.y {
-            for x in range.0.x..=range.1.x {
-                if set.contains(&IVec2::new(x, y)) {
-                    print!("#");
-                } else {
-                    print!(" ");
-                }
-            }
-            println!();
+            output::println_debug(
+                (range.0.x..=range.1.x)
+                    .map(|x| {
+                        if set.contains(&IVec2::new(x, y)) {
+                            '#'
+                        } else {
+                            ' '
+                        }
+                    })
+                    .collect(),
+            );
         }
     }
 }
@@ -61,10 +64,7 @@ pub fn print_set_range(set: &HashSet<IVec2>, range: (IVec2, IVec2)) {
 pub fn print_grid<T>(grid: &[&[T]], map_to_char: fn(&T) -> char) {
     if output::is_debug_enabled() {
         for &row in grid {
-            for cell in row {
-                print!("{}", map_to_char(cell));
-            }
-            println!();
+            output::println_debug(row.iter().map(map_to_char).collect());
         }
     }
 }

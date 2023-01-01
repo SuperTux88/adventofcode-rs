@@ -107,7 +107,7 @@ fn is_in_sprite_range(cycle: u8, value: i8) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::input;
+    use crate::{input, output};
 
     #[test]
     fn test_part1_example() {
@@ -143,6 +143,7 @@ mod tests {
     #[test]
     fn test_part2_input() {
         let day = Solution::with_input(input!(input: 2022 10));
+        output::disable_debug();
         assert_eq!(day.part2(), "RUAKHBEK");
     }
 }

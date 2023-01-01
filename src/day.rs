@@ -59,13 +59,17 @@ pub fn run_day(day: impl AoCDay, part: &Part) -> (Duration, Duration) {
 }
 
 fn run_part(day: &impl AoCDay, part: &Part, last: bool) -> Duration {
-    output::print(format!("{}─ Part {}: ", if last { '└' } else { '├' }, part));
     let start = Instant::now();
     let result = match part {
         Part::Part1 => day.part1(),
         Part::Part2 => day.part2(),
         Part::Both => unreachable!(),
     };
-    output::println(result.green().to_string());
+    output::println(format!(
+        "{}─ Part {}: {}",
+        if last { '└' } else { '├' },
+        part,
+        result.green()
+    ));
     start.elapsed()
 }
