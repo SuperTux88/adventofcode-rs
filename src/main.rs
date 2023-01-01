@@ -3,6 +3,7 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{env, process};
 
+use adventofcode::run::{BenchResults, Results};
 use clap::{Args, Parser, Subcommand};
 use colored::Colorize;
 
@@ -145,11 +146,13 @@ fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode:
                 .map(|v| v.parse::<u16>().unwrap_or(AOC_BENCH_LOOPS))
                 .unwrap_or(AOC_BENCH_LOOPS);
             for _i in 0..loops {
-                let (p, p1, p2, t) = run_solution_with_input(year, day, part, path);
-                parse.push(p);
-                part1.push(p1);
-                part2.push(p2);
-                total.push(t);
+                let (_, durations) = run_solution_with_input(year, day, part, path);
+                parse.push(durations.parsing);
+                total.push(durations.total);
+
+                // if only one part was run, use part 1 to collect the durations
+                part1.push(durations.part1.unwrap_or_else(|| durations.part2.unwrap()));
+                part2.push(durations.part2.unwrap_or_default());
             }
 
             match part {
@@ -184,7 +187,7 @@ fn run_solution_with_input(
     day: u8,
     part: &Part,
     path: &PathBuf,
-) -> (Duration, Duration, Duration, Duration) {
+) -> (Results, BenchResults) {
     match input::read_input(path) {
         Ok(mut input) => Solutions::run(year, day, part, &mut input),
         Err(e) => exit_error(e),
