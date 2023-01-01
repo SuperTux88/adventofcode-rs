@@ -58,6 +58,17 @@ pub fn print_set_range(set: &HashSet<IVec2>, range: (IVec2, IVec2)) {
     }
 }
 
+pub fn print_grid<T>(grid: &[&[T]], map_to_char: fn(&T) -> char) {
+    if output::is_debug_enabled() {
+        for &row in grid {
+            for cell in row {
+                print!("{}", map_to_char(cell));
+            }
+            println!();
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
