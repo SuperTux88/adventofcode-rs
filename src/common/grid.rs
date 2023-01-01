@@ -2,6 +2,8 @@ use std::collections::{HashMap, HashSet};
 
 use glam::IVec2;
 
+use crate::output;
+
 pub mod directions;
 pub mod distance;
 pub mod minmax;
@@ -42,15 +44,17 @@ pub fn print_set(set: &HashSet<IVec2>) {
     print_set_range(set, (min, max));
 }
 pub fn print_set_range(set: &HashSet<IVec2>, range: (IVec2, IVec2)) {
-    for y in range.0.y..=range.1.y {
-        for x in range.0.x..=range.1.x {
-            if set.contains(&IVec2::new(x, y)) {
-                print!("#");
-            } else {
-                print!(" ");
+    if output::is_debug_enabled() {
+        for y in range.0.y..=range.1.y {
+            for x in range.0.x..=range.1.x {
+                if set.contains(&IVec2::new(x, y)) {
+                    print!("#");
+                } else {
+                    print!(" ");
+                }
             }
+            println!();
         }
-        println!();
     }
 }
 

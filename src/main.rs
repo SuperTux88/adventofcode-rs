@@ -114,6 +114,7 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
         if args.input.is_some() {
             exit_error("--input can only be specified when --day is specified".to_string());
         }
+        output::disable_debug();
         for day in all_days {
             let input = input_path_or_default(args.year, day, None, args.download);
             run_solution_with_mode(args.year, day, &args.part, &input, mode);
