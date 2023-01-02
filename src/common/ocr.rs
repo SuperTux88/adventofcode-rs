@@ -15,6 +15,12 @@ pub fn read_message(image: &[&[bool]]) -> String {
     };
     let line_length = image[0].len() / char_width;
 
+    #[cfg(debug_assertions)]
+    for line in image {
+        assert_eq!(line.len() / char_width, line_length);
+        assert_eq!(line.len() % char_width, 0);
+    }
+
     let mut message = String::new();
     for i in 0..line_length {
         let char = &image
