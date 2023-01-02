@@ -1,4 +1,13 @@
 repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: f71fa2c1f9cf5cb705f73dffe4b21f7c61470ba9 # v4.4.0
+    hooks:
+    -   id: check-added-large-files
+    -   id: trailing-whitespace
+        exclude: ^input/[0-9]{4}/(?:example/)?day[0-9]{1,2}.txt$
+    -   id: end-of-file-fixer
+        exclude: ^input/[0-9]{4}/(?:example/)?day[0-9]{1,2}.txt$
+    -   id: check-toml
 -   repo: https://github.com/doublify/pre-commit-rust
     rev: eeee35a89e69d5772bdee97db1a6a898467b686e # 1.0
     hooks:
