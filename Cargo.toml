@@ -27,3 +27,14 @@ harness = false
 [[bench]]
 name = "helpers"
 harness = false
+
+[profile.dev]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+strip = true
+lto = true
+
+[profile.bench]
+lto = "thin"
