@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use adventofcode::{day::AoCDay, input};
+use adventofcode::{day::AoCDay, input, output};
 
 const AOC_BENCH_DOWNLOAD_INPUT_ENV_VAR: &str = "AOC_BENCH_DOWNLOAD_INPUT";
 
@@ -11,6 +11,7 @@ macro_rules! benchmark {
             let day = stringify!($day)[3..].parse::<u8>().unwrap();
             let download_input = std::env::var(AOC_BENCH_DOWNLOAD_INPUT_ENV_VAR).is_ok();
             let input_path = input::get_default_input_path(year, day, download_input).unwrap();
+            output::disable_output();
 
             c.bench_function(format!("{} day {} parsing", year, day).as_str(), |b| {
                 b.iter(|| {
