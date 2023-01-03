@@ -1,12 +1,12 @@
 use std::io::BufRead;
 
-use crate::{common::parsing::lines_vec, day::AoCDay};
+use crate::{aoc::Day, common::parsing::lines_vec};
 
 pub struct Solution {
     lines: Vec<String>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Rucksack Reorganization"
     }

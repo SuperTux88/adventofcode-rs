@@ -12,7 +12,7 @@ use nom::{
     IResult, Parser,
 };
 
-use crate::day::AoCDay;
+use crate::aoc::Day;
 
 #[derive(Debug, PartialEq, Eq)]
 enum Packet {
@@ -50,7 +50,7 @@ fn packets(input: &str) -> IResult<&str, Vec<Packet>> {
     separated_list1(many1(newline), packet)(input)
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Distress Signal"
     }

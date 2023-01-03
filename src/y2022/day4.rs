@@ -11,7 +11,7 @@ use nom::{
     IResult,
 };
 
-use crate::day::AoCDay;
+use crate::aoc::Day;
 
 struct Pair {
     range_a: RangeInclusive<u32>,
@@ -48,7 +48,7 @@ pub struct Solution {
     pairs: Vec<Pair>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Camp Cleanup"
     }

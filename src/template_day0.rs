@@ -1,15 +1,17 @@
-use std::io::BufRead;
+use std::io::{self, BufRead};
 
-use crate::day::AoCDay;
+use crate::aoc::Day;
 
 pub struct Solution {}
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "TODO"
     }
 
     fn with_input(input: &mut impl BufRead) -> Self {
+        let input = io::read_to_string(input).unwrap();
+
         todo!();
 
         Self {}

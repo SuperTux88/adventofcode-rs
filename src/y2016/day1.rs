@@ -13,12 +13,12 @@ use nom::{
 };
 
 use crate::{
+    aoc::Day,
     common::grid::{
         directions::{Direction, Turn},
         distance::ManhattenDistance,
         walk::Walk,
     },
-    day::AoCDay,
 };
 
 #[derive(Debug)]
@@ -50,7 +50,7 @@ pub struct Solution {
     instructions: Vec<Instruction>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "No Time for a Taxicab"
     }

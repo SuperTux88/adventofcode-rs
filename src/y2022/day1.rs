@@ -1,19 +1,19 @@
 use std::io::{self, BufRead};
 
-use crate::day::AoCDay;
+use crate::aoc::Day;
 
 pub struct Solution {
     elves_calories: Vec<u32>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Calorie Counting"
     }
 
     fn with_input(input: &mut impl BufRead) -> Self {
-        let input_str = io::read_to_string(input).unwrap();
-        let elves = input_str
+        let input = io::read_to_string(input).unwrap();
+        let elves = input
             .split("\n\n")
             .map(|elf| elf.lines().map(|c| c.parse::<u32>().unwrap()));
         let mut elves_calories: Vec<u32> = elves.map(|elf| elf.sum()).collect();

@@ -5,6 +5,7 @@ use itertools::Itertools;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::{
+    aoc::Day,
     common::{
         grid::{
             self,
@@ -15,7 +16,6 @@ use crate::{
         },
         parsing::lines_iter,
     },
-    day::AoCDay,
 };
 
 const DIRECTIONS: [[IVec2; 3]; 4] = [
@@ -29,7 +29,7 @@ pub struct Solution {
     elves: HashSet<IVec2>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Unstable Diffusion"
     }

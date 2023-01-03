@@ -7,8 +7,8 @@ use glam::IVec2;
 use itertools::Itertools;
 
 use crate::{
+    aoc::Day,
     common::grid::{directions::Direction, parse_set, walk::Walk},
-    day::AoCDay,
 };
 
 const ROCKS: &str = "####
@@ -37,7 +37,7 @@ pub struct Solution {
     jets: Vec<Direction>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Pyroclastic Flow"
     }

@@ -17,7 +17,7 @@ const AOC_SESSION_ENV_VAR: &str = "ADVENT_OF_CODE_SESSION";
 /// Returns the path to the input file for the given year and day.
 ///
 /// ```
-/// # use adventofcode::input;
+/// # use adventofcode::aoc::input;
 /// let path = input::get_input_subpath(2022, 1);
 /// # assert_eq!(path.as_path().display().to_string(), "input/2022/day1.txt");
 /// ```
@@ -154,10 +154,11 @@ fn get_cache_path_and_download_if_needed(year: u16, day: u8) -> Result<PathBuf, 
 #[macro_export]
 macro_rules! input {
     (input: $year:tt $day:tt) => {
-        &mut input::read_input(&input::get_input_subpath($year, $day)).unwrap()
+        &mut $crate::aoc::input::read_input(&$crate::aoc::input::get_input_subpath($year, $day))
+            .unwrap()
     };
     (example: $year:tt $day:tt) => {{
         let example_path = format!("input/{}/example/day{}.txt", $year, $day);
-        &mut input::read_input(&std::path::PathBuf::from(example_path)).unwrap()
+        &mut $crate::aoc::input::read_input(&std::path::PathBuf::from(example_path)).unwrap()
     }};
 }

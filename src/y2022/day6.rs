@@ -3,13 +3,13 @@ use std::{
     io::{self, BufRead},
 };
 
-use crate::day::AoCDay;
+use crate::aoc::Day;
 
 pub struct Solution {
     datastream: Vec<char>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Tuning Trouble"
     }

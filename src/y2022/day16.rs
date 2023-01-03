@@ -16,7 +16,7 @@ use nom::{
 use pathfinding::prelude::bfs;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
-use crate::day::AoCDay;
+use crate::aoc::Day;
 
 #[derive(Debug, Clone)]
 struct Valve {
@@ -67,7 +67,7 @@ pub struct Solution {
     valve_distances: HashMap<(u16, u16), u8>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Proboscidea Volcanium"
     }

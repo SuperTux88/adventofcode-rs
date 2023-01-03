@@ -1,13 +1,4 @@
-use std::{fmt::Display, io::BufRead, str::FromStr};
-
-pub trait AoCDay {
-    fn title() -> &'static str;
-
-    fn with_input(input: &mut impl BufRead) -> Self;
-
-    fn part1(&self) -> String;
-    fn part2(&self) -> String;
-}
+use std::{fmt::Display, str::FromStr};
 
 #[derive(Debug, Clone)]
 pub enum Part {

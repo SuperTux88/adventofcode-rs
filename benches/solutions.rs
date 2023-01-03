@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use adventofcode::{day::AoCDay, input, output};
+use adventofcode::aoc::{input, output, Day};
 
 const AOC_BENCH_DOWNLOAD_INPUT_ENV_VAR: &str = "AOC_BENCH_DOWNLOAD_INPUT";
 
@@ -16,20 +16,20 @@ macro_rules! benchmark {
             c.bench_function(format!("{} day {} parsing", year, day).as_str(), |b| {
                 b.iter(|| {
                     let mut input = input::read_input(&input_path).unwrap();
-                    <$year::$day::Solution as AoCDay>::with_input(&mut input)
+                    <$year::$day::Solution as Day>::with_input(&mut input)
                 })
             });
 
             c.bench_function(format!("{} day {} part 1", year, day).as_str(), |b| {
                 let mut input = input::read_input(&input_path).unwrap();
-                let solution = <$year::$day::Solution as AoCDay>::with_input(&mut input);
+                let solution = <$year::$day::Solution as Day>::with_input(&mut input);
 
                 b.iter(|| solution.part1())
             });
 
             c.bench_function(format!("{} day {} part 2", year, day).as_str(), |b| {
                 let mut input = input::read_input(&input_path).unwrap();
-                let solution = <$year::$day::Solution as AoCDay>::with_input(&mut input);
+                let solution = <$year::$day::Solution as Day>::with_input(&mut input);
 
                 b.iter(|| solution.part2())
             });

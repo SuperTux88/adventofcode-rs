@@ -1,12 +1,12 @@
 use std::io::BufRead;
 
-use crate::{common::parsing::lines_iter, day::AoCDay};
+use crate::{aoc::Day, common::parsing::lines_iter};
 
 pub struct Solution {
     numbers: Vec<u64>,
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Full of Hot Air"
     }

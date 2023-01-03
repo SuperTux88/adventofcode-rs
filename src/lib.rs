@@ -2,18 +2,14 @@ use std::io::BufRead;
 
 use colored::Colorize;
 
-use crate::day::{AoCDay, Part};
+use crate::aoc::{
+    output,
+    results::{BenchResults, Results},
+    run, Day, Part,
+};
 
-pub mod day;
-pub mod input;
-pub mod output;
-pub mod run;
-
-pub mod common {
-    pub mod grid;
-    pub mod ocr;
-    pub mod parsing;
-}
+pub mod aoc;
+pub mod common;
 
 macro_rules! aoc_solutions {
     ($(($year:ident: $($day:ident),+)),+) => {
@@ -45,7 +41,7 @@ macro_rules! aoc_solutions {
                 vec![]
             }
 
-            pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> (run::Results, run::BenchResults) {
+            pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> (Results, BenchResults) {
                 match format!("y{}", year).as_str() {
                     $(
                         stringify!($year) => {
@@ -54,16 +50,16 @@ macro_rules! aoc_solutions {
                                     stringify!($day) => {
                                         output::println(format!(
                                             "Day {} {}: {}",
-                                            day, year, <$year::$day::Solution as AoCDay>::title().white().bold()
+                                            day, year, <$year::$day::Solution as Day>::title().white().bold()
                                         ));
                                         let start = std::time::Instant::now();
-                                        let solution = <$year::$day::Solution as AoCDay>::with_input(input);
+                                        let solution = <$year::$day::Solution as Day>::with_input(input);
                                         let parsing_time = start.elapsed();
                                         let (part1, part2) = run::run_day(solution, part);
                                         let total_time = start.elapsed();
                                         (
-                                            run::Results::from((&part1, &part2)),
-                                            run::BenchResults {
+                                            Results::from((&part1, &part2)),
+                                            BenchResults {
                                                 parsing: parsing_time,
                                                 part1: part1.map(|r| r.duration),
                                                 part2: part2.map(|r| r.duration),

@@ -3,11 +3,12 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{env, process};
 
-use adventofcode::run::{BenchResults, Results};
+use adventofcode::aoc::results::{BenchResults, Results};
+use adventofcode::Solutions;
 use clap::{Args, Parser, Subcommand};
 use colored::Colorize;
 
-use adventofcode::{day::Part, input, output, Solutions};
+use adventofcode::aoc::{input, output, Part};
 
 const AOC_BENCH_LOOPS: u16 = 10;
 const AOC_BENCH_LOOPS_ENV_VAR: &str = "AOC_BENCH_LOOPS";

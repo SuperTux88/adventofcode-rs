@@ -9,7 +9,7 @@ use nom::{
     IResult, Parser,
 };
 
-use crate::{common::ocr, day::AoCDay};
+use crate::{aoc::Day, common::ocr};
 
 const LINE_LENGTH: u8 = 40;
 const CENTER_CYCLES: [u8; 6] = [20, 60, 100, 140, 180, 220];
@@ -34,7 +34,7 @@ fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
     )(input)
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Cathode-Ray Tube"
     }

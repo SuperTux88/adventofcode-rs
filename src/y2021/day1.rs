@@ -1,6 +1,6 @@
 use std::io::BufRead;
 
-use crate::{common::parsing::parse_lines_vec, day::AoCDay};
+use crate::{aoc::Day, common::parsing::parse_lines_vec};
 
 pub struct Solution {
     depths: Vec<u32>,
@@ -15,7 +15,7 @@ impl Solution {
     }
 }
 
-impl AoCDay for Solution {
+impl Day for Solution {
     fn title() -> &'static str {
         "Sonar Sweep"
     }
