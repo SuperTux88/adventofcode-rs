@@ -8,17 +8,26 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
 colored = "2.0.0"
-dirs = "4.0.0"
+dirs = { version = "4.0.0", optional = true }
 glam = "0.22.0"
 itertools = "0.10.5"
 nom = "7.1.1"
 num = "0.4.0"
 pathfinding = "4.2.0"
 rayon = "1.6.1"
-reqwest = { version = "0.11.13", default-features = false, features = ["blocking", "gzip", "rustls-tls"] }
+
+[dependencies.reqwest]
+version = "0.11.13"
+optional = true
+default-features = false
+features = ["blocking", "gzip", "rustls-tls"]
 
 [dev-dependencies]
 criterion = { version = "0.4.0", features = ["html_reports"] }
+
+[features]
+default = ["online"]
+online = ["dep:dirs", "dep:reqwest"]
 
 [[bench]]
 name = "solutions"

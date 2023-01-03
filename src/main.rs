@@ -56,8 +56,23 @@ struct RunArgs {
     input: Option<String>,
 
     /// Download and cache input file
+    #[cfg(feature = "online")]
     #[arg(long)]
     download: bool,
+}
+
+impl RunArgs {
+    fn download(&self) -> bool {
+        #[cfg(feature = "online")]
+        {
+            self.download
+        }
+
+        #[cfg(not(feature = "online"))]
+        {
+            false
+        }
+    }
 }
 
 enum RunMode {
@@ -100,7 +115,8 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
                     Solutions::run(args.year, day, &args.part, &mut stdin);
                 }
                 input => {
-                    let input = input_path_or_default(args.year, day, input.clone(), args.download);
+                    let input =
+                        input_path_or_default(args.year, day, input.clone(), args.download());
                     run_solution_with_mode(args.year, day, &args.part, &input, mode);
                 }
             };
@@ -118,7 +134,7 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
         }
         output::disable_debug();
         for day in all_days {
-            let input = input_path_or_default(args.year, day, None, args.download);
+            let input = input_path_or_default(args.year, day, None, args.download());
             run_solution_with_mode(args.year, day, &args.part, &input, mode);
         }
     }
