@@ -3,7 +3,6 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{env, process};
 
-use adventofcode::aoc::results::{BenchResults, Results};
 use adventofcode::Solutions;
 use clap::{Args, Parser, Subcommand};
 use colored::Colorize;
@@ -151,9 +150,12 @@ fn input_path_or_default(year: u16, day: u8, input: Option<String>, download: bo
 
 fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode: &RunMode) {
     match mode {
-        RunMode::Results => {
-            run_solution_with_input(year, day, part, path);
-        }
+        RunMode::Results => match input::read_input(path) {
+            Ok(mut input) => {
+                Solutions::run(year, day, part, &mut input);
+            }
+            Err(e) => exit_error(e),
+        },
         RunMode::Benchmark => {
             print!("{} day {:>2}: ", year, day);
             let (mut parse, mut part1, mut part2, mut total) =
@@ -163,7 +165,10 @@ fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode:
                 .map(|v| v.parse::<u16>().unwrap_or(AOC_BENCH_LOOPS))
                 .unwrap_or(AOC_BENCH_LOOPS);
             for _i in 0..loops {
-                let (_, durations) = run_solution_with_input(year, day, part, path);
+                let durations = match input::read_input(path) {
+                    Ok(mut input) => Solutions::bench(year, day, part, &mut input),
+                    Err(e) => exit_error(e),
+                };
                 parse.push(durations.parsing);
                 total.push(durations.total);
 
@@ -197,18 +202,6 @@ fn print_times(times: Vec<Duration>) -> String {
     let min = times.iter().min().unwrap();
     let max = times.iter().max().unwrap();
     format!("({:>7.1?} / {:>7.1?} / {:>7.1?})", min, avg, max)
-}
-
-fn run_solution_with_input(
-    year: u16,
-    day: u8,
-    part: &Part,
-    path: &PathBuf,
-) -> (Results, BenchResults) {
-    match input::read_input(path) {
-        Ok(mut input) => Solutions::run(year, day, part, &mut input),
-        Err(e) => exit_error(e),
-    }
 }
 
 fn num_list<T: ToString>(list: Vec<T>) -> String {

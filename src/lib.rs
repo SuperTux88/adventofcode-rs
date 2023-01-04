@@ -41,7 +41,7 @@ macro_rules! aoc_solutions {
                 vec![]
             }
 
-            pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> (Results, BenchResults) {
+            pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> Results {
                 match format!("y{}", year).as_str() {
                     $(
                         stringify!($year) => {
@@ -52,20 +52,32 @@ macro_rules! aoc_solutions {
                                             "Day {} {}: {}",
                                             day, year, <$year::$day::Solution as Day>::title().white().bold()
                                         ));
+                                        let solution = <$year::$day::Solution as Day>::with_input(input);
+                                        let (part1, part2) = run::run_day(solution, part);
+                                        Results { part1, part2 }
+                                    },
+                                )+
+                                _ => panic!("Day {} {} is not implemented yet", day, year),
+                            }
+                        }
+                    )+
+                    _ => panic!("Year {} is not implemented yet", year),
+                }
+            }
+
+            pub fn bench(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> BenchResults {
+                match format!("y{}", year).as_str() {
+                    $(
+                        stringify!($year) => {
+                            match format!("day{}", day).as_str() {
+                                $(
+                                    stringify!($day) => {
                                         let start = std::time::Instant::now();
                                         let solution = <$year::$day::Solution as Day>::with_input(input);
-                                        let parsing_time = start.elapsed();
-                                        let (part1, part2) = run::run_day(solution, part);
-                                        let total_time = start.elapsed();
-                                        (
-                                            Results::from((&part1, &part2)),
-                                            BenchResults {
-                                                parsing: parsing_time,
-                                                part1: part1.map(|r| r.duration),
-                                                part2: part2.map(|r| r.duration),
-                                                total: total_time,
-                                            }
-                                        )
+                                        let parsing = start.elapsed();
+                                        let (part1, part2) = run::bench_day(solution, part);
+                                        let total = start.elapsed();
+                                        BenchResults { parsing, part1, part2, total }
                                     },
                                 )+
                                 _ => panic!("Day {} {} is not implemented yet", day, year),
