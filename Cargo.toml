@@ -22,7 +22,7 @@ itertools = "0.10.5"
 nom = "7.1.1"
 num = "0.4.0"
 pathfinding = "4.2.0"
-rayon = "1.6.1"
+rayon = { version = "1.6.1", optional = true }
 wasm-bindgen = { version = "0.2.83", optional = true }
 
 [dependencies.reqwest]
@@ -35,8 +35,9 @@ features = ["blocking", "gzip", "rustls-tls"]
 criterion = { version = "0.4.0", features = ["html_reports"] }
 
 [features]
-default = ["online"]
+default = ["online", "parallel"]
 online = ["dep:dirs", "dep:reqwest"]
+parallel = ["dep:rayon"]
 wasm = ["dep:wasm-bindgen", "colored/no-color"]
 
 [[bench]]

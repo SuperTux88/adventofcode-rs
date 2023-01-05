@@ -5,7 +5,9 @@ use crate::Solutions;
 use super::results::Results;
 
 #[cfg(feature = "online")]
-compile_error!("feature \"online\" cannot be enabled for \"wasm\" at the same time. Use \"...  --no-default-features --features wasm\" instead.");
+compile_error!("feature \"online\" cannot be enabled with \"wasm\" at the same time. Use \"...  --no-default-features --features wasm\" instead.");
+#[cfg(feature = "parallel")]
+compile_error!("feature \"parallel\" cannot be enabled with \"wasm\" at the same time. Use \"...  --no-default-features --features wasm\" instead.");
 
 #[wasm_bindgen]
 pub fn years() -> Vec<u16> {

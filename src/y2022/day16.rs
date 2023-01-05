@@ -15,7 +15,7 @@ use nom::{
 };
 use pathfinding::prelude::bfs;
 
-#[cfg(not(feature = "wasm"))]
+#[cfg(feature = "parallel")]
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::aoc::Day;
@@ -126,9 +126,9 @@ impl Day for Solution {
             .cloned()
             .collect::<BTreeSet<u16>>();
 
-        #[cfg(not(feature = "wasm"))]
+        #[cfg(feature = "parallel")]
         let elephant_iter = max_pressures_26.par_iter();
-        #[cfg(feature = "wasm")] // threads not working in wasm
+        #[cfg(not(feature = "parallel"))]
         let elephant_iter = max_pressures_26.iter();
 
         let pressures_with_elephant = elephant_iter.map(|(open, pressure)| {
