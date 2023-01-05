@@ -8,6 +8,8 @@ description = "Advent of Code in Rust"
 repository = "https://github.com/SuperTux88/adventofcode-rs"
 license = "MIT"
 
+default-run = "aoc"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]

@@ -3,11 +3,13 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{env, process};
 
-use adventofcode::Solutions;
 use clap::{Args, Parser, Subcommand};
 use colored::Colorize;
 
-use adventofcode::aoc::{input, output, Part};
+use adventofcode::{
+    aoc::{input, output, Part},
+    Solutions,
+};
 
 const AOC_BENCH_LOOPS: u16 = 10;
 const AOC_BENCH_LOOPS_ENV_VAR: &str = "AOC_BENCH_LOOPS";
@@ -15,9 +17,9 @@ const AOC_BENCH_LOOPS_ENV_VAR: &str = "AOC_BENCH_LOOPS";
 #[derive(Parser)]
 #[command(author, version, about = "Advent of Code soltions in rust.", long_about = None)]
 #[command(override_usage = "
-\tadventofcode list
-\tadventofcode run [-y <year>] [-d <day>] [-p <part>] [-i <input>]
-\tadventofcode bench [-y <year>] [-d <day>] [-p <part>] [-i <input>]
+\taoc list
+\taoc run [-y <year>] [-d <day>] [-p <part>] [-i <input>]
+\taoc bench [-y <year>] [-d <day>] [-p <part>] [-i <input>]
 ")]
 struct Cli {
     #[command(subcommand)]
