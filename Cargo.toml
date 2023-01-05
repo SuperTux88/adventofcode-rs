@@ -10,6 +10,9 @@ license = "MIT"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
 colored = "2.0.0"
@@ -20,6 +23,7 @@ nom = "7.1.1"
 num = "0.4.0"
 pathfinding = "4.2.0"
 rayon = "1.6.1"
+wasm-bindgen = { version = "0.2.83", optional = true }
 
 [dependencies.reqwest]
 version = "0.11.13"
@@ -33,6 +37,7 @@ criterion = { version = "0.4.0", features = ["html_reports"] }
 [features]
 default = ["online"]
 online = ["dep:dirs", "dep:reqwest"]
+wasm = ["dep:wasm-bindgen", "colored/no-color"]
 
 [[bench]]
 name = "solutions"

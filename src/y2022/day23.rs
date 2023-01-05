@@ -2,6 +2,8 @@ use std::{collections::HashSet, io::BufRead};
 
 use glam::IVec2;
 use itertools::Itertools;
+
+#[cfg(not(feature = "wasm"))]
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::{
@@ -63,8 +65,12 @@ impl Day for Solution {
 }
 
 fn move_round(elves: &mut HashSet<IVec2>, round: u16) -> u16 {
-    let preferred_targets = elves
-        .par_iter()
+    #[cfg(not(feature = "wasm"))]
+    let elves_iter = elves.par_iter();
+    #[cfg(feature = "wasm")] // threads not working in wasm
+    let elves_iter = elves.iter();
+
+    let preferred_targets = elves_iter
         .filter_map(|elf| get_prefered_target(elves, elf, round).map(|target| (*elf, target)))
         .collect::<Vec<(IVec2, IVec2)>>();
 

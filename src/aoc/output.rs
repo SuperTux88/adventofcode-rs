@@ -1,7 +1,17 @@
 use std::sync::atomic::{AtomicBool, Ordering};
 
+#[cfg(feature = "wasm")]
+use wasm_bindgen::prelude::wasm_bindgen;
+
 static OUTPUT: AtomicBool = AtomicBool::new(true);
 static DEBUG: AtomicBool = AtomicBool::new(true);
+
+#[cfg(feature = "wasm")]
+#[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+}
 
 /// Disables output to stdout
 pub fn disable_output() {
@@ -21,12 +31,20 @@ pub fn is_debug_enabled() -> bool {
 /// Prints a message with newline to stdout if output is enabled
 pub fn println(msg: String) {
     if OUTPUT.load(Ordering::Relaxed) {
+        #[cfg(feature = "wasm")]
+        log(&msg);
+
+        #[cfg(not(feature = "wasm"))]
         println!("{}", msg);
     }
 }
 
 pub fn println_debug(msg: String) {
     if DEBUG.load(Ordering::Relaxed) {
+        #[cfg(feature = "wasm")]
+        log(&msg);
+
+        #[cfg(not(feature = "wasm"))]
         println!("│  {}", msg);
     }
 }

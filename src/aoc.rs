@@ -8,5 +8,8 @@ pub mod run;
 #[cfg(feature = "online")]
 mod online;
 
+#[cfg(feature = "wasm")]
+mod wasm;
+
 pub use self::day::Day;
 pub use self::part::Part;

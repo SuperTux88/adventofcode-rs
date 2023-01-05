@@ -23,6 +23,7 @@ dependencies = [
  "pathfinding",
  "rayon",
  "reqwest",
+ "wasm-bindgen",
 ]
 
 [[package]]
