@@ -31,14 +31,14 @@ macro_rules! aoc_solutions {
             }
 
             pub fn days_for_year(year: u16) -> Vec<u8> {
-                $(
-                    if year == stringify!($year)[1..].parse::<u16>().unwrap() {
-                        return vec![$(
+                match format!("y{}", year).as_str() {
+                    $(
+                        stringify!($year) => vec![$(
                             stringify!($day)[3..].parse::<u8>().unwrap(),
-                        )+]
-                    }
-                )+
-                vec![]
+                        )+],
+                    )+
+                    _ => vec![],
+                }
             }
 
             pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> Results {
