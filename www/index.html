@@ -3,41 +3,15 @@
 
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>🎄 Advent of Code - Rust 🦀</title>
 </head>
 
 <body>
     <h1>🎄 Advent of Code - Rust 🦀</h1>
 
-    <script type="module">
-        import init, { years, days_for_year, run } from "./adventofcode.js";
-
-        init()
-            .then(() => {
-                console.log(years());
-                console.log(days_for_year(2022));
-
-                let input = `1000
-2000
-3000
-
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000
-`
-
-                let result = run(2022, 1, "both", input);
-                console.log(result.part1);
-                console.log(result.part2);
-            });
-    </script>
+    <link data-trunk rel="rust" href="../Cargo.toml" data-bin="wasm" data-cargo-no-default-features
+        data-cargo-features="wasm" />
 </body>
 
 </html>

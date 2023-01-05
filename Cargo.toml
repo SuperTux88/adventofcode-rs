@@ -12,9 +12,6 @@ default-run = "aoc"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[lib]
-crate-type = ["cdylib", "rlib"]
-
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
 colored = "2.0.0"
@@ -26,6 +23,7 @@ num = "0.4.0"
 pathfinding = "4.2.0"
 rayon = { version = "1.6.1", optional = true }
 wasm-bindgen = { version = "0.2.83", optional = true }
+console_error_panic_hook = { version = "0.1.6", optional = true }
 
 [dependencies.reqwest]
 version = "0.11.13"
@@ -40,7 +38,11 @@ criterion = { version = "0.4.0", features = ["html_reports"] }
 default = ["online", "parallel"]
 online = ["dep:dirs", "dep:reqwest"]
 parallel = ["dep:rayon"]
-wasm = ["dep:wasm-bindgen", "colored/no-color"]
+wasm = ["dep:wasm-bindgen", "dep:console_error_panic_hook", "colored/no-color"]
+
+[[bin]]
+name = "wasm"
+required-features = ["wasm"]
 
 [[bench]]
 name = "solutions"

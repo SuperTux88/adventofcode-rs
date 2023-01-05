@@ -1,0 +1,5 @@
+[build]
+target = "www/index.html"
+
+[watch]
+watch = ["src", "www"]
