@@ -1,10 +1,16 @@
 use std::{fmt::Display, str::FromStr};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Part {
     Part1,
     Part2,
     Both,
+}
+
+impl Part {
+    pub fn values() -> Vec<Self> {
+        vec![Self::Part1, Self::Part2, Self::Both]
+    }
 }
 
 impl FromStr for Part {

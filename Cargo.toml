@@ -23,13 +23,21 @@ num = "0.4.0"
 pathfinding = "4.2.0"
 rayon = { version = "1.6.1", optional = true }
 wasm-bindgen = { version = "0.2.83", optional = true }
-console_error_panic_hook = { version = "0.1.6", optional = true }
+yew = { version = "0.20.0", features = ["csr"], optional = true }
 
 [dependencies.reqwest]
 version = "0.11.13"
 optional = true
 default-features = false
 features = ["blocking", "gzip", "rustls-tls"]
+
+[dependencies.web-sys]
+version = "0.3.60"
+optional = true
+features = [
+  "HtmlSelectElement",
+  "HtmlTextAreaElement",
+]
 
 [dev-dependencies]
 criterion = { version = "0.4.0", features = ["html_reports"] }
@@ -38,7 +46,7 @@ criterion = { version = "0.4.0", features = ["html_reports"] }
 default = ["online", "parallel"]
 online = ["dep:dirs", "dep:reqwest"]
 parallel = ["dep:rayon"]
-wasm = ["dep:wasm-bindgen", "dep:console_error_panic_hook", "colored/no-color"]
+wasm = ["dep:wasm-bindgen", "dep:web-sys", "dep:yew", "colored/no-color"]
 
 [[bin]]
 name = "wasm"
