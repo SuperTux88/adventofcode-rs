@@ -11,7 +11,7 @@ use nom::{
     IResult,
 };
 
-use crate::aoc::Day;
+use crate::aoc::{day::DayParser, Day};
 
 struct Pair {
     range_a: RangeInclusive<u32>,
@@ -32,31 +32,35 @@ impl Pair {
     }
 }
 
-fn range(input: &str) -> IResult<&str, RangeInclusive<u32>> {
-    let (input, (start, end)) = separated_pair(complete::u32, tag("-"), complete::u32)(input)?;
-    Ok((input, start..=end))
+pub struct Solution {
+    pairs: Vec<Pair>,
 }
-fn pair(input: &str) -> IResult<&str, Pair> {
-    let (input, (range_a, range_b)) = separated_pair(range, tag(","), range)(input)?;
-    Ok((input, Pair { range_a, range_b }))
+
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        let input = io::read_to_string(input).unwrap();
+        let (_, pairs) = pairs(input.as_str()).unwrap();
+        Self { pairs }
+    }
 }
+
 fn pairs(input: &str) -> IResult<&str, Vec<Pair>> {
     separated_list1(newline, pair)(input)
 }
 
-pub struct Solution {
-    pairs: Vec<Pair>,
+fn pair(input: &str) -> IResult<&str, Pair> {
+    let (input, (range_a, range_b)) = separated_pair(range, tag(","), range)(input)?;
+    Ok((input, Pair { range_a, range_b }))
+}
+
+fn range(input: &str) -> IResult<&str, RangeInclusive<u32>> {
+    let (input, (start, end)) = separated_pair(complete::u32, tag("-"), complete::u32)(input)?;
+    Ok((input, start..=end))
 }
 
 impl Day for Solution {
     fn title() -> &'static str {
         "Camp Cleanup"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
-        let input = io::read_to_string(input).unwrap();
-        let (_, pairs) = pairs(input.as_str()).unwrap();
-        Self { pairs }
     }
 
     fn part1(&self) -> String {

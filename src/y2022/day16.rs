@@ -18,14 +18,7 @@ use pathfinding::prelude::bfs;
 #[cfg(feature = "parallel")]
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
-use crate::aoc::Day;
-
-#[derive(Debug, Clone)]
-struct Valve {
-    id: u16,
-    flow_rate: u8,
-    tunnels: Vec<u16>,
-}
+use crate::aoc::{day::DayParser, Day};
 
 const START: u16 = convert_id("AA");
 
@@ -34,34 +27,11 @@ const fn convert_id(id: &str) -> u16 {
     (((id[0] - b'A') as u16) << 5) + (id[1] - b'A') as u16
 }
 
-fn valve_id(input: &str) -> IResult<&str, u16> {
-    let (input, id) = alpha1(input)?;
-    Ok((input, convert_id(id)))
-}
-fn valve(input: &str) -> IResult<&str, Valve> {
-    let (input, (id, flow_rate, tunnels)) = tuple((
-        preceded(tag("Valve "), valve_id),
-        preceded(tag(" has flow rate="), complete::u8),
-        preceded(
-            alt((
-                tag("; tunnel leads to valve "),
-                tag("; tunnels lead to valves "),
-            )),
-            separated_list1(tag(", "), valve_id),
-        ),
-    ))(input)?;
-
-    Ok((
-        input,
-        Valve {
-            id,
-            flow_rate,
-            tunnels,
-        },
-    ))
-}
-fn valves(input: &str) -> IResult<&str, Vec<Valve>> {
-    separated_list1(newline, valve)(input)
+#[derive(Debug, Clone)]
+struct Valve {
+    id: u16,
+    flow_rate: u8,
+    tunnels: Vec<u16>,
 }
 
 pub struct Solution {
@@ -69,12 +39,8 @@ pub struct Solution {
     valve_distances: HashMap<(u16, u16), u8>,
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
-        "Proboscidea Volcanium"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         let input = io::read_to_string(input).unwrap();
         let (_, valves) = valves(input.as_str()).unwrap();
 
@@ -112,6 +78,44 @@ impl Day for Solution {
             valves_with_flow,
             valve_distances,
         }
+    }
+}
+
+fn valves(input: &str) -> IResult<&str, Vec<Valve>> {
+    separated_list1(newline, valve)(input)
+}
+
+fn valve(input: &str) -> IResult<&str, Valve> {
+    let (input, (id, flow_rate, tunnels)) = tuple((
+        preceded(tag("Valve "), valve_id),
+        preceded(tag(" has flow rate="), complete::u8),
+        preceded(
+            alt((
+                tag("; tunnel leads to valve "),
+                tag("; tunnels lead to valves "),
+            )),
+            separated_list1(tag(", "), valve_id),
+        ),
+    ))(input)?;
+
+    Ok((
+        input,
+        Valve {
+            id,
+            flow_rate,
+            tunnels,
+        },
+    ))
+}
+
+fn valve_id(input: &str) -> IResult<&str, u16> {
+    let (input, id) = alpha1(input)?;
+    Ok((input, convert_id(id)))
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "Proboscidea Volcanium"
     }
 
     fn part1(&self) -> String {

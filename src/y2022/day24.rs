@@ -8,7 +8,7 @@ use num::integer::lcm;
 use pathfinding::prelude::astar;
 
 use crate::{
-    aoc::Day,
+    aoc::{day::DayParser, Day},
     common::{
         grid::{
             directions::{Direction, Directions},
@@ -39,22 +39,8 @@ pub struct Solution {
     blocked_at_times: Vec<HashSet<IVec2>>,
 }
 
-fn free_in_line(map: &HashMap<IVec2, Tile>, line: &i32) -> IVec2 {
-    map.iter()
-        .find_map(|(pos, tile)| match tile {
-            Tile::Free if &pos.y == line => Some(pos),
-            _ => None,
-        })
-        .unwrap()
-        .to_owned()
-}
-
-impl Day for Solution {
-    fn title() -> &'static str {
-        "Blizzard Basin"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         let map = parse_map(lines_iter(input), |c| match c {
             '.' => Tile::Free,
             '#' => Tile::Wall,
@@ -132,6 +118,22 @@ impl Day for Solution {
             end,
             blocked_at_times,
         }
+    }
+}
+
+fn free_in_line(map: &HashMap<IVec2, Tile>, line: &i32) -> IVec2 {
+    map.iter()
+        .find_map(|(pos, tile)| match tile {
+            Tile::Free if &pos.y == line => Some(pos),
+            _ => None,
+        })
+        .unwrap()
+        .to_owned()
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "Blizzard Basin"
     }
 
     fn part1(&self) -> String {

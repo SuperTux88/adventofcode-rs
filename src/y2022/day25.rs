@@ -1,19 +1,24 @@
 use std::io::BufRead;
 
-use crate::{aoc::Day, common::parsing::lines_iter};
+use crate::{
+    aoc::{day::DayParser, Day},
+    common::parsing::lines_iter,
+};
 
 pub struct Solution {
     numbers: Vec<u64>,
 }
 
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        let numbers = lines_iter(input).map(|l| parse_snafu(&l)).collect();
+        Self { numbers }
+    }
+}
+
 impl Day for Solution {
     fn title() -> &'static str {
         "Full of Hot Air"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
-        let numbers = lines_iter(input).map(|l| parse_snafu(&l)).collect();
-        Self { numbers }
     }
 
     fn part1(&self) -> String {

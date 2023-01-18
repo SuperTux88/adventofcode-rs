@@ -9,7 +9,10 @@ use nom::{
     IResult, Parser,
 };
 
-use crate::{aoc::Day, common::ocr};
+use crate::{
+    aoc::{day::DayParser, Day},
+    common::ocr,
+};
 
 const LINE_LENGTH: u8 = 40;
 const CENTER_CYCLES: [u8; 6] = [20, 60, 100, 140, 180, 220];
@@ -22,6 +25,15 @@ enum Instruction {
 
 pub struct Solution {
     instructions: Vec<Instruction>,
+}
+
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        let input = io::read_to_string(input).unwrap();
+        let (_, instructions) = instructions(&input).unwrap();
+
+        Self { instructions }
+    }
 }
 
 fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
@@ -37,13 +49,6 @@ fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
 impl Day for Solution {
     fn title() -> &'static str {
         "Cathode-Ray Tube"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
-        let input = io::read_to_string(input).unwrap();
-        let (_, instructions) = instructions(&input).unwrap();
-
-        Self { instructions }
     }
 
     fn part1(&self) -> String {

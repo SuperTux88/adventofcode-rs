@@ -7,7 +7,7 @@ use itertools::Itertools;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::{
-    aoc::Day,
+    aoc::{day::DayParser, Day},
     common::{
         grid::{
             self,
@@ -31,14 +31,16 @@ pub struct Solution {
     elves: HashSet<IVec2>,
 }
 
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        let elves = grid::parse_set(lines_iter(input));
+        Self { elves }
+    }
+}
+
 impl Day for Solution {
     fn title() -> &'static str {
         "Unstable Diffusion"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
-        let elves = grid::parse_set(lines_iter(input));
-        Self { elves }
     }
 
     fn part1(&self) -> String {

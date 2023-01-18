@@ -3,9 +3,10 @@ use std::io::BufRead;
 use colored::Colorize;
 
 use crate::aoc::{
+    day::{Day, DayParser},
     output,
     results::{BenchResults, Results},
-    run, Day, Part,
+    run, Part,
 };
 
 pub mod aoc;
@@ -52,7 +53,7 @@ macro_rules! aoc_solutions {
                                             "Day {} {}: {}",
                                             day, year, <$year::$day::Solution as Day>::title().white().bold()
                                         ));
-                                        let solution = <$year::$day::Solution as Day>::with_input(input);
+                                        let solution = <$year::$day::Solution as DayParser>::with_input(input);
                                         let (part1, part2) = run::run_day(solution, part);
                                         Results { part1, part2 }
                                     },
@@ -73,7 +74,7 @@ macro_rules! aoc_solutions {
                                 $(
                                     stringify!($day) => {
                                         let start = std::time::Instant::now();
-                                        let solution = <$year::$day::Solution as Day>::with_input(input);
+                                        let solution = <$year::$day::Solution as DayParser>::with_input(input);
                                         let parsing = start.elapsed();
                                         let (part1, part2) = run::bench_day(solution, part);
                                         let total = start.elapsed();

@@ -1,20 +1,22 @@
 use std::io::{self, BufRead};
 
-use crate::aoc::Day;
+use crate::aoc::day::{Day, DayParser};
 
 pub struct Solution {}
 
-impl Day for Solution {
-    fn title() -> &'static str {
-        "TODO"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         let input = io::read_to_string(input).unwrap();
 
         todo!();
 
         Self {}
+    }
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "TODO"
     }
 
     fn part1(&self) -> String {

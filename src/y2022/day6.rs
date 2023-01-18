@@ -3,24 +3,26 @@ use std::{
     io::{self, BufRead},
 };
 
-use crate::aoc::Day;
+use crate::aoc::{day::DayParser, Day};
 
 pub struct Solution {
     datastream: Vec<char>,
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
-        "Tuning Trouble"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         let datastream = io::read_to_string(input)
             .unwrap()
             .chars()
             .collect::<Vec<char>>();
 
         Self { datastream }
+    }
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "Tuning Trouble"
     }
 
     fn part1(&self) -> String {

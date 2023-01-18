@@ -1,20 +1,25 @@
 use std::io::BufRead;
 
-use crate::{aoc::Day, common::parsing::lines_vec};
+use crate::{
+    aoc::{day::DayParser, Day},
+    common::parsing::lines_vec,
+};
 
 pub struct Solution {
     lines: Vec<String>,
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
-        "Rucksack Reorganization"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         Self {
             lines: lines_vec(input),
         }
+    }
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "Rucksack Reorganization"
     }
 
     fn part1(&self) -> String {

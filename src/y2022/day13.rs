@@ -12,7 +12,7 @@ use nom::{
     IResult, Parser,
 };
 
-use crate::aoc::Day;
+use crate::aoc::{day::DayParser, Day};
 
 #[derive(Debug, PartialEq, Eq)]
 enum Packet {
@@ -40,26 +40,29 @@ pub struct Solution {
     packets: Vec<Packet>,
 }
 
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        let input = io::read_to_string(input).unwrap();
+        let (_, packets) = packets(&input).unwrap();
+
+        Self { packets }
+    }
+}
+
+fn packets(input: &str) -> IResult<&str, Vec<Packet>> {
+    separated_list1(many1(newline), packet)(input)
+}
+
 fn packet(input: &str) -> IResult<&str, Packet> {
     alt((
         delimited(tag("["), separated_list0(tag(","), packet), tag("]")).map(Packet::List),
         complete::u8.map(Packet::Number),
     ))(input)
 }
-fn packets(input: &str) -> IResult<&str, Vec<Packet>> {
-    separated_list1(many1(newline), packet)(input)
-}
 
 impl Day for Solution {
     fn title() -> &'static str {
         "Distress Signal"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
-        let input = io::read_to_string(input).unwrap();
-        let (_, packets) = packets(&input).unwrap();
-
-        Self { packets }
     }
 
     fn part1(&self) -> String {

@@ -7,7 +7,7 @@ use glam::IVec2;
 use itertools::Itertools;
 
 use crate::{
-    aoc::Day,
+    aoc::{day::DayParser, Day},
     common::grid::{directions::Direction, parse_set, walk::Walk},
 };
 
@@ -37,12 +37,8 @@ pub struct Solution {
     jets: Vec<Direction>,
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
-        "Pyroclastic Flow"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         let rocks = ROCKS
             .split("\n\n")
             .map(|rock_str| {
@@ -64,6 +60,12 @@ impl Day for Solution {
             .collect();
 
         Self { rocks, jets }
+    }
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "Pyroclastic Flow"
     }
 
     fn part1(&self) -> String {

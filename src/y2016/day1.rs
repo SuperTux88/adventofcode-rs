@@ -13,7 +13,7 @@ use nom::{
 };
 
 use crate::{
-    aoc::Day,
+    aoc::{day::DayParser, Day},
     common::grid::{
         directions::{Direction, Turn},
         distance::ManhattenDistance,
@@ -27,6 +27,27 @@ struct Instruction {
     distance: u16,
 }
 
+pub struct Solution {
+    instructions: Vec<Instruction>,
+}
+
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        let input = io::read_to_string(input).unwrap();
+        let (_, instructions) = instructions(input.as_str()).unwrap();
+        Self { instructions }
+    }
+}
+
+fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
+    separated_list1(tag(", "), instruction)(input)
+}
+
+fn instruction(input: &str) -> IResult<&str, Instruction> {
+    let (input, (turn, distance)) = tuple((turn, complete::u16))(input)?;
+    Ok((input, Instruction { turn, distance }))
+}
+
 fn turn(input: &str) -> IResult<&str, Turn> {
     let (input, turn) = anychar(input)?;
     Ok((
@@ -38,27 +59,10 @@ fn turn(input: &str) -> IResult<&str, Turn> {
         },
     ))
 }
-fn instruction(input: &str) -> IResult<&str, Instruction> {
-    let (input, (turn, distance)) = tuple((turn, complete::u16))(input)?;
-    Ok((input, Instruction { turn, distance }))
-}
-fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
-    separated_list1(tag(", "), instruction)(input)
-}
-
-pub struct Solution {
-    instructions: Vec<Instruction>,
-}
 
 impl Day for Solution {
     fn title() -> &'static str {
         "No Time for a Taxicab"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
-        let input = io::read_to_string(input).unwrap();
-        let (_, instructions) = instructions(input.as_str()).unwrap();
-        Self { instructions }
     }
 
     fn part1(&self) -> String {

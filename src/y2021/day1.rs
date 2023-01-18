@@ -1,17 +1,19 @@
 use std::io::BufRead;
 
-use crate::{aoc::Day, common::parsing::parse_lines_vec};
+use crate::{
+    aoc::{day::DayParser, Day},
+    common::parsing::parse_lines_vec,
+};
 
 pub struct Solution {
     depths: Vec<u32>,
 }
 
-impl Solution {
-    fn count_increasing_depth(&self, group_size: usize) -> usize {
-        self.depths
-            .windows(group_size + 1)
-            .filter(|x| x[0] < x[group_size])
-            .count()
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
+        Self {
+            depths: parse_lines_vec(input),
+        }
     }
 }
 
@@ -20,18 +22,21 @@ impl Day for Solution {
         "Sonar Sweep"
     }
 
-    fn with_input(input: &mut impl BufRead) -> Self {
-        Self {
-            depths: parse_lines_vec(input),
-        }
-    }
-
     fn part1(&self) -> String {
         self.count_increasing_depth(1).to_string()
     }
 
     fn part2(&self) -> String {
         self.count_increasing_depth(3).to_string()
+    }
+}
+
+impl Solution {
+    fn count_increasing_depth(&self, group_size: usize) -> usize {
+        self.depths
+            .windows(group_size + 1)
+            .filter(|x| x[0] < x[group_size])
+            .count()
     }
 }
 

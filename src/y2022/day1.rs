@@ -1,17 +1,13 @@
 use std::io::{self, BufRead};
 
-use crate::aoc::Day;
+use crate::aoc::{day::DayParser, Day};
 
 pub struct Solution {
     elves_calories: Vec<u32>,
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
-        "Calorie Counting"
-    }
-
-    fn with_input(input: &mut impl BufRead) -> Self {
+impl DayParser for Solution {
+    fn with_input(input: &mut dyn BufRead) -> Self {
         let input = io::read_to_string(input).unwrap();
         let elves = input
             .split("\n\n")
@@ -20,6 +16,12 @@ impl Day for Solution {
         elves_calories.sort();
 
         Self { elves_calories }
+    }
+}
+
+impl Day for Solution {
+    fn title() -> &'static str {
+        "Calorie Counting"
     }
 
     fn part1(&self) -> String {
