@@ -68,5 +68,20 @@ opt-level = 3
 strip = true
 lto = true
 
+[profile.release.package.reqwest]
+opt-level = "s"
+
+[profile.release.package.rustls]
+opt-level = "s"
+
+[profile.release.package.ring]
+opt-level = "s"
+
+[profile.release.package.h2]
+opt-level = "s"
+
+[profile.release.package.clap]
+opt-level = "s"
+
 [profile.bench]
 lto = "thin"
