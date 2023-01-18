@@ -7,7 +7,10 @@ use yew::{
 
 use super::select::Select;
 
-use crate::{aoc::part::Part, Solutions};
+use crate::{
+    aoc::{part::Part, run},
+    Solutions,
+};
 
 struct Selection {
     year: u16,
@@ -80,7 +83,7 @@ pub fn App() -> Html {
                 .unwrap()
                 .value();
 
-            results.set(Some(Solutions::run(
+            results.set(Some(run::run(
                 selection.year,
                 selection.day,
                 &selection.part,

@@ -7,7 +7,7 @@ use clap::{Args, Parser, Subcommand};
 use colored::Colorize;
 
 use adventofcode::{
-    aoc::{input, output, part::Part},
+    aoc::{input, output, part::Part, run},
     Solutions,
 };
 
@@ -113,7 +113,7 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
             match &args.input {
                 Some(stdin) if stdin == "-" => {
                     let mut stdin = BufReader::new(io::stdin());
-                    Solutions::run(args.year, day, &args.part, &mut stdin);
+                    run::run(args.year, day, &args.part, &mut stdin);
                 }
                 input => {
                     let input =
@@ -154,7 +154,7 @@ fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode:
     match mode {
         RunMode::Results => match input::read_input(path) {
             Ok(mut input) => {
-                Solutions::run(year, day, part, &mut input);
+                run::run(year, day, part, &mut input);
             }
             Err(e) => exit_error(e),
         },
@@ -168,7 +168,7 @@ fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode:
                 .unwrap_or(AOC_BENCH_LOOPS);
             for _i in 0..loops {
                 let durations = match input::read_input(path) {
-                    Ok(mut input) => Solutions::bench(year, day, part, &mut input),
+                    Ok(mut input) => run::bench(year, day, part, &mut input),
                     Err(e) => exit_error(e),
                 };
                 parse.push(durations.parsing);

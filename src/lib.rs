@@ -1,13 +1,8 @@
 use std::io::BufRead;
 
-use colored::Colorize;
-
 use crate::aoc::{
     day::{DayParser, DaySolution},
     output,
-    part::Part,
-    results::{BenchResults, Results},
-    run,
 };
 
 pub mod aoc;
@@ -43,44 +38,13 @@ macro_rules! aoc_solutions {
                 }
             }
 
-            pub fn run(year: u16, day: u8, part: &Part, input: &mut dyn BufRead) -> Results {
+            pub fn get_with_input(year: u16, day: u8, input: &mut dyn BufRead) -> Box<dyn DaySolution> {
                 match format!("y{}", year).as_str() {
                     $(
                         stringify!($year) => {
                             match format!("day{}", day).as_str() {
                                 $(
-                                    stringify!($day) => {
-                                        let solution = <$year::$day::Solution as DayParser>::with_input(input);
-                                        output::println(format!(
-                                            "Day {} {}: {}",
-                                            day, year, solution.title().white().bold()
-                                        ));
-                                        let (part1, part2) = run::run_day(solution, part);
-                                        Results { part1, part2 }
-                                    },
-                                )+
-                                _ => panic!("Day {} {} is not implemented yet", day, year),
-                            }
-                        }
-                    )+
-                    _ => panic!("Year {} is not implemented yet", year),
-                }
-            }
-
-            pub fn bench(year: u16, day: u8, part: &Part, input: &mut dyn BufRead) -> BenchResults {
-                match format!("y{}", year).as_str() {
-                    $(
-                        stringify!($year) => {
-                            match format!("day{}", day).as_str() {
-                                $(
-                                    stringify!($day) => {
-                                        let start = std::time::Instant::now();
-                                        let solution = <$year::$day::Solution as DayParser>::with_input(input);
-                                        let parsing = start.elapsed();
-                                        let (part1, part2) = run::bench_day(solution, part);
-                                        let total = start.elapsed();
-                                        BenchResults { parsing, part1, part2, total }
-                                    },
+                                    stringify!($day) => Box::new(<$year::$day::Solution as DayParser>::with_input(input)),
                                 )+
                                 _ => panic!("Day {} {} is not implemented yet", day, year),
                             }
