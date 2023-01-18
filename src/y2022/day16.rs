@@ -18,7 +18,7 @@ use pathfinding::prelude::bfs;
 #[cfg(feature = "parallel")]
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
-use crate::aoc::{day::DayParser, Day};
+use crate::aoc::day::{DayParser, DaySolution};
 
 const START: u16 = convert_id("AA");
 
@@ -113,8 +113,8 @@ fn valve_id(input: &str) -> IResult<&str, u16> {
     Ok((input, convert_id(id)))
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Proboscidea Volcanium"
     }
 

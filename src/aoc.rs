@@ -10,6 +10,3 @@ mod online;
 
 #[cfg(feature = "wasm")]
 pub mod wasm;
-
-pub use self::day::Day;
-pub use self::part::Part;

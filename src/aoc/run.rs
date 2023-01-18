@@ -2,10 +2,10 @@ use std::time::{Duration, Instant};
 
 use colored::Colorize;
 
-use super::{output, Day, Part};
+use super::{day::DaySolution, output, part::Part};
 
 /// Runs the given part(s) for the given day and returns the results.
-pub fn run_day(day: impl Day, part: &Part) -> (Option<String>, Option<String>) {
+pub fn run_day(day: impl DaySolution, part: &Part) -> (Option<String>, Option<String>) {
     match part {
         Part::Part1 => (Some(run_and_print_part(&day, part, true)), None),
         Part::Part2 => (None, Some(run_and_print_part(&day, part, true))),
@@ -17,7 +17,7 @@ pub fn run_day(day: impl Day, part: &Part) -> (Option<String>, Option<String>) {
 }
 
 /// Runs the given part(s) for the given day and returns the duration for benchmark.
-pub fn bench_day(day: impl Day, part: &Part) -> (Option<Duration>, Option<Duration>) {
+pub fn bench_day(day: impl DaySolution, part: &Part) -> (Option<Duration>, Option<Duration>) {
     match part {
         Part::Part1 => (Some(bench_part(&day, part)), None),
         Part::Part2 => (None, Some(bench_part(&day, part))),
@@ -28,7 +28,7 @@ pub fn bench_day(day: impl Day, part: &Part) -> (Option<Duration>, Option<Durati
     }
 }
 
-fn run_part(day: &impl Day, part: &Part) -> String {
+fn run_part(day: &impl DaySolution, part: &Part) -> String {
     match part {
         Part::Part1 => day.part1(),
         Part::Part2 => day.part2(),
@@ -36,7 +36,7 @@ fn run_part(day: &impl Day, part: &Part) -> String {
     }
 }
 
-fn run_and_print_part(day: &impl Day, part: &Part, last: bool) -> String {
+fn run_and_print_part(day: &impl DaySolution, part: &Part, last: bool) -> String {
     let result = run_part(day, part);
     output::println(format!(
         "{}─ Part {}: {}",
@@ -47,7 +47,7 @@ fn run_and_print_part(day: &impl Day, part: &Part, last: bool) -> String {
     result
 }
 
-fn bench_part(day: &impl Day, part: &Part) -> Duration {
+fn bench_part(day: &impl DaySolution, part: &Part) -> Duration {
     let start = Instant::now();
     run_part(day, part);
     start.elapsed()

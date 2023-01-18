@@ -10,7 +10,7 @@ use nom::{
 };
 
 use crate::{
-    aoc::{day::DayParser, Day},
+    aoc::day::{DayParser, DaySolution},
     common::ocr,
 };
 
@@ -46,8 +46,8 @@ fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
     )(input)
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Cathode-Ray Tube"
     }
 

@@ -7,7 +7,7 @@ use itertools::Itertools;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::{
-    aoc::{day::DayParser, Day},
+    aoc::day::{DayParser, DaySolution},
     common::{
         grid::{
             self,
@@ -38,8 +38,8 @@ impl DayParser for Solution {
     }
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Unstable Diffusion"
     }
 

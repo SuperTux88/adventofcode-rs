@@ -3,10 +3,11 @@ use std::io::BufRead;
 use colored::Colorize;
 
 use crate::aoc::{
-    day::{Day, DayParser},
+    day::{DayParser, DaySolution},
     output,
+    part::Part,
     results::{BenchResults, Results},
-    run, Part,
+    run,
 };
 
 pub mod aoc;
@@ -42,18 +43,18 @@ macro_rules! aoc_solutions {
                 }
             }
 
-            pub fn run(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> Results {
+            pub fn run(year: u16, day: u8, part: &Part, input: &mut dyn BufRead) -> Results {
                 match format!("y{}", year).as_str() {
                     $(
                         stringify!($year) => {
                             match format!("day{}", day).as_str() {
                                 $(
                                     stringify!($day) => {
+                                        let solution = <$year::$day::Solution as DayParser>::with_input(input);
                                         output::println(format!(
                                             "Day {} {}: {}",
-                                            day, year, <$year::$day::Solution as Day>::title().white().bold()
+                                            day, year, solution.title().white().bold()
                                         ));
-                                        let solution = <$year::$day::Solution as DayParser>::with_input(input);
                                         let (part1, part2) = run::run_day(solution, part);
                                         Results { part1, part2 }
                                     },
@@ -66,7 +67,7 @@ macro_rules! aoc_solutions {
                 }
             }
 
-            pub fn bench(year: u16, day: u8, part: &Part, input: &mut impl BufRead) -> BenchResults {
+            pub fn bench(year: u16, day: u8, part: &Part, input: &mut dyn BufRead) -> BenchResults {
                 match format!("y{}", year).as_str() {
                     $(
                         stringify!($year) => {

@@ -8,7 +8,7 @@ use num::integer::lcm;
 use pathfinding::prelude::astar;
 
 use crate::{
-    aoc::{day::DayParser, Day},
+    aoc::day::{DayParser, DaySolution},
     common::{
         grid::{
             directions::{Direction, Directions},
@@ -131,8 +131,8 @@ fn free_in_line(map: &HashMap<IVec2, Tile>, line: &i32) -> IVec2 {
         .to_owned()
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Blizzard Basin"
     }
 

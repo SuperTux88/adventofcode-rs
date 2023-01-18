@@ -13,7 +13,7 @@ use nom::{
 };
 
 use crate::{
-    aoc::{day::DayParser, Day},
+    aoc::day::{DayParser, DaySolution},
     common::grid::{
         directions::{Direction, Turn},
         distance::ManhattenDistance,
@@ -60,8 +60,8 @@ fn turn(input: &str) -> IResult<&str, Turn> {
     ))
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "No Time for a Taxicab"
     }
 

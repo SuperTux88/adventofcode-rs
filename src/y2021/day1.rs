@@ -1,7 +1,7 @@
 use std::io::BufRead;
 
 use crate::{
-    aoc::{day::DayParser, Day},
+    aoc::day::{DayParser, DaySolution},
     common::parsing::parse_lines_vec,
 };
 
@@ -17,8 +17,8 @@ impl DayParser for Solution {
     }
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Sonar Sweep"
     }
 

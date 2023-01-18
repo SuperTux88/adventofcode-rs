@@ -11,7 +11,7 @@ use nom::{
     IResult,
 };
 
-use crate::aoc::{day::DayParser, Day};
+use crate::aoc::day::{DayParser, DaySolution};
 
 struct Pair {
     range_a: RangeInclusive<u32>,
@@ -58,8 +58,8 @@ fn range(input: &str) -> IResult<&str, RangeInclusive<u32>> {
     Ok((input, start..=end))
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Camp Cleanup"
     }
 

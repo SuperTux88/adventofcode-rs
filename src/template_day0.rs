@@ -1,6 +1,6 @@
 use std::io::{self, BufRead};
 
-use crate::aoc::day::{Day, DayParser};
+use crate::aoc::day::{DayParser, DaySolution};
 
 pub struct Solution {}
 
@@ -14,8 +14,8 @@ impl DayParser for Solution {
     }
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "TODO"
     }
 

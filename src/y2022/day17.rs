@@ -7,7 +7,7 @@ use glam::IVec2;
 use itertools::Itertools;
 
 use crate::{
-    aoc::{day::DayParser, Day},
+    aoc::day::{DayParser, DaySolution},
     common::grid::{directions::Direction, parse_set, walk::Walk},
 };
 
@@ -63,8 +63,8 @@ impl DayParser for Solution {
     }
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Pyroclastic Flow"
     }
 

@@ -7,7 +7,7 @@ use clap::{Args, Parser, Subcommand};
 use colored::Colorize;
 
 use adventofcode::{
-    aoc::{input, output, Part},
+    aoc::{input, output, part::Part},
     Solutions,
 };
 

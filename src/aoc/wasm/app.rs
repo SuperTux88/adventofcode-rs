@@ -7,7 +7,7 @@ use yew::{
 
 use super::select::Select;
 
-use crate::{aoc::Part, Solutions};
+use crate::{aoc::part::Part, Solutions};
 
 struct Selection {
     year: u16,

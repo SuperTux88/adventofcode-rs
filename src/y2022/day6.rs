@@ -3,7 +3,7 @@ use std::{
     io::{self, BufRead},
 };
 
-use crate::aoc::{day::DayParser, Day};
+use crate::aoc::day::{DayParser, DaySolution};
 
 pub struct Solution {
     datastream: Vec<char>,
@@ -20,8 +20,8 @@ impl DayParser for Solution {
     }
 }
 
-impl Day for Solution {
-    fn title() -> &'static str {
+impl DaySolution for Solution {
+    fn title(&self) -> &'static str {
         "Tuning Trouble"
     }
 

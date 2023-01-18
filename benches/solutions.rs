@@ -1,6 +1,6 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 
-use adventofcode::aoc::{input, output, Day};
+use adventofcode::aoc::{input, output, DaySolution};
 
 const AOC_BENCH_DOWNLOAD_INPUT_ENV_VAR: &str = "AOC_BENCH_DOWNLOAD_INPUT";
 
