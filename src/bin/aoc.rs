@@ -3,78 +3,22 @@ use std::path::PathBuf;
 use std::time::Duration;
 use std::{env, process};
 
-use clap::{Args, Parser, Subcommand};
+use clap::Parser;
 use colored::Colorize;
+use itertools::join;
 
 use adventofcode::{
-    aoc::{input, output, part::Part, run},
+    aoc::{
+        cli::args::{Cli, Commands, RunArgs},
+        input, output,
+        part::Part,
+        run,
+    },
     Solutions,
 };
 
 const AOC_BENCH_LOOPS: u16 = 10;
 const AOC_BENCH_LOOPS_ENV_VAR: &str = "AOC_BENCH_LOOPS";
-
-#[derive(Parser)]
-#[command(author, version, about = "Advent of Code soltions in rust.", long_about = None)]
-#[command(override_usage = "
-\taoc list
-\taoc run [-y <year>] [-d <day>] [-p <part>] [-i <input>]
-\taoc bench [-y <year>] [-d <day>] [-p <part>] [-i <input>]
-")]
-struct Cli {
-    #[command(subcommand)]
-    command: Commands,
-}
-
-#[derive(Subcommand)]
-enum Commands {
-    /// List all available solutions
-    List,
-
-    /// Run a solution and print results
-    Run(RunArgs),
-
-    /// Run a solution and print some benchmark times
-    Bench(RunArgs),
-}
-
-#[derive(Args)]
-struct RunArgs {
-    /// Year to execute
-    #[arg(short, long, default_value_t = 2022, value_parser = parse_year)]
-    year: u16,
-
-    /// Day to execute
-    #[arg(short, long, value_parser = parse_day)]
-    day: Option<u8>,
-
-    /// Part to execute
-    #[arg(short, long, default_value_t = Part::Both)]
-    part: Part,
-
-    /// Input file to use, use '-' for stdin [default: input/<year>/day<day>.txt]
-    #[arg(short, long)]
-    input: Option<String>,
-
-    /// Download and cache input file
-    #[cfg(feature = "online")]
-    #[arg(long)]
-    download: bool,
-}
-
-impl RunArgs {
-    fn download(&self) -> bool {
-        #[cfg(feature = "online")]
-        {
-            self.download
-        }
-
-        #[cfg(not(feature = "online"))]
-        {
-            false
-        }
-    }
-}
 
 enum RunMode {
     Results,
@@ -89,7 +33,7 @@ fn main() {
             println!("Currently implemented solutions:");
             let years = Solutions::years();
             for year in years {
-                println!("\t{}: {}", year, num_list(Solutions::days_for_year(year)));
+                println!("\t{}: {}", year, join(Solutions::days_for_year(year), ", "));
             }
         }
 
@@ -126,12 +70,16 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
                 "No solutions for day {} {} yet, chose one of: {}",
                 day,
                 args.year,
-                num_list(all_days)
+                join(all_days, ", ")
             ));
         }
     } else {
         if args.input.is_some() {
-            exit_error("--input can only be specified when --day is specified".to_string());
+            exit_error(format!(
+                "{} can only be specified when {} is specified",
+                "--input".yellow(),
+                "--day".yellow()
+            ));
         }
         output::disable_debug();
         for day in all_days {
@@ -206,39 +154,7 @@ fn print_times(times: Vec<Duration>) -> String {
     format!("({:>7.1?} / {:>7.1?} / {:>7.1?})", min, avg, max)
 }
 
-fn num_list<T: ToString>(list: Vec<T>) -> String {
-    list.iter()
-        .map(|y| y.to_string())
-        .collect::<Vec<String>>()
-        .join(", ")
-}
-
 fn exit_error(e: String) -> ! {
     eprintln!("{} {}", "error:".red(), e);
     process::exit(1)
-}
-
-fn parse_year(s: &str) -> Result<u16, String> {
-    let year = s.parse().map_err(|_| format!("Invalid year: {}", s))?;
-    let all_years = Solutions::years();
-    if all_years.contains(&year) {
-        Ok(year)
-    } else {
-        Err(format!(
-            "No solutions for {} yet, chose one of: {}",
-            year,
-            num_list(all_years)
-        ))
-    }
-}
-
-fn parse_day(s: &str) -> Result<u8, String> {
-    let day = s
-        .parse::<usize>()
-        .map_err(|_| format!("Invalid day: {}", s))?;
-    if (1..=25).contains(&day) {
-        Ok(day as u8)
-    } else {
-        Err("Day must be between 1 and 25".to_string())
-    }
 }
