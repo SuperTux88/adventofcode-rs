@@ -1,7 +1,6 @@
 use std::io::{self, BufReader};
 use std::path::PathBuf;
-use std::time::Duration;
-use std::{env, process};
+use std::process;
 
 use clap::Parser;
 use colored::Colorize;
@@ -9,16 +8,16 @@ use itertools::join;
 
 use adventofcode::{
     aoc::{
-        cli::args::{Cli, Commands, RunArgs},
+        cli::{
+            args::{Cli, Commands, RunArgs},
+            benchmark::run_benchmark,
+        },
         input, output,
         part::Part,
         run,
     },
     Solutions,
 };
-
-const AOC_BENCH_LOOPS: u16 = 10;
-const AOC_BENCH_LOOPS_ENV_VAR: &str = "AOC_BENCH_LOOPS";
 
 enum RunMode {
     Results,
@@ -107,51 +106,12 @@ fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode:
             Err(e) => exit_error(e),
         },
         RunMode::Benchmark => {
-            print!("{} day {:>2}: ", year, day);
-            let (mut parse, mut part1, mut part2, mut total) =
-                (Vec::new(), Vec::new(), Vec::new(), Vec::new());
-
-            let loops = env::var(AOC_BENCH_LOOPS_ENV_VAR)
-                .map(|v| v.parse::<u16>().unwrap_or(AOC_BENCH_LOOPS))
-                .unwrap_or(AOC_BENCH_LOOPS);
-            for _i in 0..loops {
-                let durations = match input::read_input(path) {
-                    Ok(mut input) => run::bench(year, day, part, &mut input),
-                    Err(e) => exit_error(e),
-                };
-                parse.push(durations.parsing);
-                total.push(durations.total);
-
-                // if only one part was run, use part 1 to collect the durations
-                part1.push(durations.part1.unwrap_or_else(|| durations.part2.unwrap()));
-                part2.push(durations.part2.unwrap_or_default());
-            }
-
-            match part {
-                Part::Both => println!(
-                    "parsing: {} | part 1: {} | part 2: {} | total: {}",
-                    print_times(parse),
-                    print_times(part1),
-                    print_times(part2),
-                    print_times(total)
-                ),
-                part => println!(
-                    "parsing: {} | part {}: {} | total: {}",
-                    print_times(parse),
-                    part,
-                    print_times(part1),
-                    print_times(total)
-                ),
+            match run_benchmark(year, day, part, path) {
+                Ok(()) => {}
+                Err(e) => exit_error(e),
             };
         }
     }
-}
-
-fn print_times(times: Vec<Duration>) -> String {
-    let avg = times.iter().sum::<Duration>() / times.len() as u32;
-    let min = times.iter().min().unwrap();
-    let max = times.iter().max().unwrap();
-    format!("({:>7.1?} / {:>7.1?} / {:>7.1?})", min, avg, max)
 }
 
 fn exit_error(e: String) -> ! {
