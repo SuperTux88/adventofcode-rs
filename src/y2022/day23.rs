@@ -20,6 +20,8 @@ use crate::{
     },
 };
 
+pub const TITLE: &str = "Unstable Diffusion";
+
 const DIRECTIONS: [[IVec2; 3]; 4] = [
     [TOP_LEFT, UP, TOP_RIGHT],
     [BOTTOM_LEFT, DOWN, BOTTOM_RIGHT],
@@ -39,10 +41,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Unstable Diffusion"
-    }
-
     fn part1(&self) -> String {
         let mut elves = self.elves.clone();
 

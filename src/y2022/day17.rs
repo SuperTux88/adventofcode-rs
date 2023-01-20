@@ -11,6 +11,8 @@ use crate::{
     common::grid::{directions::Direction, parse_set, walk::Walk},
 };
 
+pub const TITLE: &str = "Pyroclastic Flow";
+
 const ROCKS: &str = "####
 
 .#.
@@ -64,10 +66,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Pyroclastic Flow"
-    }
-
     fn part1(&self) -> String {
         let mut chamber = (0..7).map(|x| IVec2::new(x, 1)).collect::<HashSet<_>>();
         let mut direction_offset = 0;

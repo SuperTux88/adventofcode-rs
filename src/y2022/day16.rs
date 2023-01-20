@@ -20,6 +20,8 @@ use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
 use crate::aoc::day::{DayParser, DaySolution};
 
+pub const TITLE: &str = "Proboscidea Volcanium";
+
 const START: u16 = convert_id("AA");
 
 const fn convert_id(id: &str) -> u16 {
@@ -114,10 +116,6 @@ fn valve_id(input: &str) -> IResult<&str, u16> {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Proboscidea Volcanium"
-    }
-
     fn part1(&self) -> String {
         self.max_pressure(30).values().max().unwrap().to_string()
     }

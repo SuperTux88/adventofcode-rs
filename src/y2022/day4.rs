@@ -13,6 +13,8 @@ use nom::{
 
 use crate::aoc::day::{DayParser, DaySolution};
 
+pub const TITLE: &str = "Camp Cleanup";
+
 struct Pair {
     range_a: RangeInclusive<u32>,
     range_b: RangeInclusive<u32>,
@@ -59,10 +61,6 @@ fn range(input: &str) -> IResult<&str, RangeInclusive<u32>> {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Camp Cleanup"
-    }
-
     fn part1(&self) -> String {
         self.pairs
             .iter()

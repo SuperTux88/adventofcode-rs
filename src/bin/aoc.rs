@@ -56,7 +56,8 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
             match &args.input {
                 Some(stdin) if stdin == "-" => {
                     let mut stdin = BufReader::new(io::stdin());
-                    run::run(args.year, day, &args.part, &mut stdin);
+                    let day = Solutions::get(args.year, day);
+                    run::run(day, &args.part, &mut stdin);
                 }
                 input => {
                     let input =
@@ -98,15 +99,16 @@ fn input_path_or_default(year: u16, day: u8, input: Option<String>, download: bo
 }
 
 fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode: &RunMode) {
+    let day = Solutions::get(year, day);
     match mode {
         RunMode::Results => match input::read_input(path) {
             Ok(mut input) => {
-                run::run(year, day, part, &mut input);
+                run::run(day, part, &mut input);
             }
             Err(e) => exit_error(e),
         },
         RunMode::Benchmark => {
-            match run_benchmark(year, day, part, path) {
+            match run_benchmark(day, part, path) {
                 Ok(()) => {}
                 Err(e) => exit_error(e),
             };

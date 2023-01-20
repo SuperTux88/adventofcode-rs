@@ -4,9 +4,11 @@ use std::{
     time::{Duration, Instant},
 };
 
-use crate::{
-    aoc::{day::DaySolution, input, part::Part, run},
-    Solutions,
+use crate::aoc::{
+    day::{Day, DaySolution},
+    input,
+    part::Part,
+    run,
 };
 
 const AOC_BENCH_LOOPS: u16 = 10;
@@ -20,10 +22,10 @@ struct Times {
     total: Vec<Duration>,
 }
 
-pub fn run_benchmark(year: u16, day: u8, part: &Part, path: &PathBuf) -> Result<(), String> {
-    print!("{} day {:>2}: ", year, day);
+pub fn run_benchmark(day: Day, part: &Part, path: &PathBuf) -> Result<(), String> {
+    print!("{} day {:>2}: ", day.year, day.day);
 
-    let times = collect_times(year, day, path, part)?;
+    let times = collect_times(day, path, part)?;
 
     match part {
         Part::Both => println!(
@@ -52,7 +54,7 @@ pub fn run_benchmark(year: u16, day: u8, part: &Part, path: &PathBuf) -> Result<
     Ok(())
 }
 
-fn collect_times(year: u16, day: u8, input_path: &PathBuf, part: &Part) -> Result<Times, String> {
+fn collect_times(day: Day, input_path: &PathBuf, part: &Part) -> Result<Times, String> {
     let mut times = Times::default();
 
     let loops = env::var(AOC_BENCH_LOOPS_ENV_VAR)
@@ -60,7 +62,7 @@ fn collect_times(year: u16, day: u8, input_path: &PathBuf, part: &Part) -> Resul
         .unwrap_or(AOC_BENCH_LOOPS);
     for _i in 0..loops {
         let start = std::time::Instant::now();
-        let solution = Solutions::get_with_input(year, day, &mut input::read_input(input_path)?);
+        let solution = day.parse(&mut input::read_input(input_path)?);
         times.parsing.push(start.elapsed());
 
         if part == &Part::Part1 || part == &Part::Both {

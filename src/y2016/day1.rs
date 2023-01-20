@@ -21,6 +21,8 @@ use crate::{
     },
 };
 
+pub const TITLE: &str = "No Time for a Taxicab";
+
 #[derive(Debug)]
 struct Instruction {
     turn: Turn,
@@ -61,10 +63,6 @@ fn turn(input: &str) -> IResult<&str, Turn> {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "No Time for a Taxicab"
-    }
-
     fn part1(&self) -> String {
         let (target, _) = self.instructions.iter().fold(
             (IVec2::ZERO, Direction::Up),

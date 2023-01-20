@@ -5,6 +5,8 @@ use crate::{
     common::parsing::lines_vec,
 };
 
+pub const TITLE: &str = "Rucksack Reorganization";
+
 pub struct Solution {
     lines: Vec<String>,
 }
@@ -18,10 +20,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Rucksack Reorganization"
-    }
-
     fn part1(&self) -> String {
         self.lines
             .iter()

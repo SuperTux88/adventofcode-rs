@@ -14,6 +14,8 @@ use nom::{
 
 use crate::aoc::day::{DayParser, DaySolution};
 
+pub const TITLE: &str = "Distress Signal";
+
 #[derive(Debug, PartialEq, Eq)]
 enum Packet {
     Number(u8),
@@ -61,10 +63,6 @@ fn packet(input: &str) -> IResult<&str, Packet> {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Distress Signal"
-    }
-
     fn part1(&self) -> String {
         self.packets
             .chunks(2)

@@ -5,6 +5,8 @@ use crate::{
     common::parsing::parse_lines_vec,
 };
 
+pub const TITLE: &str = "Sonar Sweep";
+
 pub struct Solution {
     depths: Vec<u32>,
 }
@@ -18,10 +20,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Sonar Sweep"
-    }
-
     fn part1(&self) -> String {
         self.count_increasing_depth(1).to_string()
     }

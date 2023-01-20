@@ -78,17 +78,13 @@ pub fn App() -> Html {
         let results = results.clone();
 
         move |_| {
+            let day = Solutions::get(selection.year, selection.day);
             let input = input_node_ref
                 .cast::<HtmlTextAreaElement>()
                 .unwrap()
                 .value();
 
-            results.set(Some(run::run(
-                selection.year,
-                selection.day,
-                &selection.part,
-                &mut input.as_bytes(),
-            )));
+            results.set(Some(run::run(day, &selection.part, &mut input.as_bytes())));
         }
     };
 

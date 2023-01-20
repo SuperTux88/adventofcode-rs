@@ -2,6 +2,8 @@ use std::io::{self, BufRead};
 
 use crate::aoc::day::{DayParser, DaySolution};
 
+pub const TITLE: &str = "Calorie Counting";
+
 pub struct Solution {
     elves_calories: Vec<u32>,
 }
@@ -20,10 +22,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Calorie Counting"
-    }
-
     fn part1(&self) -> String {
         self.elves_calories.last().unwrap().to_string()
     }

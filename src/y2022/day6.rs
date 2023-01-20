@@ -5,6 +5,8 @@ use std::{
 
 use crate::aoc::day::{DayParser, DaySolution};
 
+pub const TITLE: &str = "Tuning Trouble";
+
 pub struct Solution {
     datastream: Vec<char>,
 }
@@ -21,10 +23,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Tuning Trouble"
-    }
-
     fn part1(&self) -> String {
         self.find_start(4).to_string()
     }

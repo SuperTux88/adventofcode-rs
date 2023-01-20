@@ -2,35 +2,35 @@ use std::io::BufRead;
 
 use colored::Colorize;
 
-use crate::Solutions;
-
-use super::{day::DaySolution, output, part::Part, results::Results};
-
-pub fn run(year: u16, day: u8, part: &Part, input: &mut dyn BufRead) -> Results {
-    let solution = Solutions::get_with_input(year, day, input);
-    output::println(format!(
-        "Day {} {}: {}",
-        day,
-        year,
-        solution.title().white().bold()
-    ));
-    run_solution(solution.as_ref(), part)
-}
+use super::{
+    day::{Day, DaySolution},
+    output,
+    part::Part,
+    results::Results,
+};
 
 /// Runs the given part(s) for the given day and returns the results.
-pub fn run_solution(solution: &dyn DaySolution, part: &Part) -> Results {
+pub fn run(day: Day, part: &Part, input: &mut dyn BufRead) -> Results {
+    output::println(format!(
+        "Day {} {}: {}",
+        day.day,
+        day.year,
+        day.title.white().bold()
+    ));
+
+    let solution = day.parse(input);
     match part {
         Part::Part1 => Results {
-            part1: Some(run_and_print_part(solution, part, true)),
+            part1: Some(run_and_print_part(solution.as_ref(), part, true)),
             part2: None,
         },
         Part::Part2 => Results {
             part1: None,
-            part2: Some(run_and_print_part(solution, part, true)),
+            part2: Some(run_and_print_part(solution.as_ref(), part, true)),
         },
         Part::Both => Results {
-            part1: Some(run_and_print_part(solution, &Part::Part1, false)),
-            part2: Some(run_and_print_part(solution, &Part::Part2, true)),
+            part1: Some(run_and_print_part(solution.as_ref(), &Part::Part1, false)),
+            part2: Some(run_and_print_part(solution.as_ref(), &Part::Part2, true)),
         },
     }
 }

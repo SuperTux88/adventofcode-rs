@@ -2,6 +2,8 @@ use std::io::{self, BufRead};
 
 use crate::aoc::day::{DayParser, DaySolution};
 
+pub const TITLE: &str = "TODO";
+
 pub struct Solution {}
 
 impl DayParser for Solution {
@@ -15,10 +17,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "TODO"
-    }
-
     fn part1(&self) -> String {
         todo!();
     }

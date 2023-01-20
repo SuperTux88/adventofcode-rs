@@ -1,7 +1,5 @@
-use std::io::BufRead;
-
 use crate::aoc::{
-    day::{DayParser, DaySolution},
+    day::{Day, DayParser},
     output,
 };
 
@@ -38,13 +36,16 @@ macro_rules! aoc_solutions {
                 }
             }
 
-            pub fn get_with_input(year: u16, day: u8, input: &mut dyn BufRead) -> Box<dyn DaySolution> {
+            pub fn get(year: u16, day: u8) -> Day {
                 match format!("y{}", year).as_str() {
                     $(
                         stringify!($year) => {
                             match format!("day{}", day).as_str() {
                                 $(
-                                    stringify!($day) => Box::new(<$year::$day::Solution as DayParser>::with_input(input)),
+                                    stringify!($day) =>
+                                        Day::new(year, day, $year::$day::TITLE, |i| {
+                                            Box::new(<$year::$day::Solution as DayParser>::with_input(i))
+                                        }),
                                 )+
                                 _ => panic!("Day {} {} is not implemented yet", day, year),
                             }

@@ -20,6 +20,8 @@ use crate::{
     },
 };
 
+pub const TITLE: &str = "Blizzard Basin";
+
 #[derive(Debug)]
 enum Tile {
     Free,
@@ -132,10 +134,6 @@ fn free_in_line(map: &HashMap<IVec2, Tile>, line: &i32) -> IVec2 {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Blizzard Basin"
-    }
-
     fn part1(&self) -> String {
         let start = State::new(self.start);
         self.find_path(&start, &self.end).0.to_string()

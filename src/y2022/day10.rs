@@ -14,6 +14,8 @@ use crate::{
     common::ocr,
 };
 
+pub const TITLE: &str = "Cathode-Ray Tube";
+
 const LINE_LENGTH: u8 = 40;
 const CENTER_CYCLES: [u8; 6] = [20, 60, 100, 140, 180, 220];
 
@@ -47,10 +49,6 @@ fn instructions(input: &str) -> IResult<&str, Vec<Instruction>> {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Cathode-Ray Tube"
-    }
-
     fn part1(&self) -> String {
         let (_, _, sum_of_signal_strengths) = self.instructions.iter().fold(
             (1, 1i8, 0u16),

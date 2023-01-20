@@ -5,6 +5,8 @@ use crate::{
     common::parsing::lines_iter,
 };
 
+pub const TITLE: &str = "Full of Hot Air";
+
 pub struct Solution {
     numbers: Vec<u64>,
 }
@@ -17,10 +19,6 @@ impl DayParser for Solution {
 }
 
 impl DaySolution for Solution {
-    fn title(&self) -> &'static str {
-        "Full of Hot Air"
-    }
-
     fn part1(&self) -> String {
         let sum = self.numbers.iter().sum::<u64>();
         to_snafu(sum)
