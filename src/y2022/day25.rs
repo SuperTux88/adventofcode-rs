@@ -108,13 +108,13 @@ mod tests {
     }
     #[test]
     fn test_part1_example() {
-        let day = Solution::with_input(input!(example: 2022 25));
-        assert_eq!(day.part1(), "2=-1=0");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part1(), "2=-1=0");
     }
 
     #[test]
     fn test_part1_input() {
-        let day = Solution::with_input(input!(input: 2022 25));
-        assert_eq!(day.part1(), "2-2=12=1-=-1=000=222");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part1(), "2-2=12=1-=-1=000=222");
     }
 }

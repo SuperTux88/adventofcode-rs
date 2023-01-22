@@ -70,12 +70,14 @@ pub fn get_default_input_path(year: u16, day: u8, download: bool) -> Result<Path
 
 #[macro_export]
 macro_rules! input {
-    (input: $year:tt $day:tt) => {
-        &mut $crate::aoc::input::read_input(&$crate::aoc::input::get_input_subpath($year, $day))
+    (input) => {{
+        let (year, day) = $crate::aoc::day::parse_year_and_day_from_module(module_path!());
+        &mut $crate::aoc::input::read_input(&$crate::aoc::input::get_input_subpath(year, day))
             .unwrap()
-    };
-    (example: $year:tt $day:tt) => {{
-        let example_path = format!("input/{}/example/day{}.txt", $year, $day);
+    }};
+    (example) => {{
+        let (year, day) = $crate::aoc::day::parse_year_and_day_from_module(module_path!());
+        let example_path = format!("input/{}/example/day{}.txt", year, day);
         &mut $crate::aoc::input::read_input(&std::path::PathBuf::from(example_path)).unwrap()
     }};
 }

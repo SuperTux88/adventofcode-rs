@@ -114,20 +114,20 @@ mod tests {
 
     #[test]
     fn test_part1_example() {
-        let day = Solution::with_input(input!(example: 2022 10));
-        assert_eq!(day.part1(), "13140");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part1(), "13140");
     }
 
     #[test]
     fn test_part1_input() {
-        let day = Solution::with_input(input!(input: 2022 10));
-        assert_eq!(day.part1(), "13220");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part1(), "13220");
     }
 
     #[test]
     fn test_part2_example() {
-        let day = Solution::with_input(input!(example: 2022 10));
-        let pixels = day.get_pixels();
+        let solution = Solution::with_input(input!(example));
+        let pixels = solution.get_pixels();
         assert_eq!(pixels[..40], [true, true, false, false].repeat(10));
         assert_eq!(
             pixels[40..76],
@@ -145,8 +145,8 @@ mod tests {
 
     #[test]
     fn test_part2_input() {
-        let day = Solution::with_input(input!(input: 2022 10));
+        let solution = Solution::with_input(input!(input));
         output::disable_debug();
-        assert_eq!(day.part2(), "RUAKHBEK");
+        assert_eq!(solution.part2(), "RUAKHBEK");
     }
 }

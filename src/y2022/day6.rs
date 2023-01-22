@@ -54,8 +54,8 @@ mod tests {
 
     #[test]
     fn test_part1_example() {
-        let day = Solution::with_input(input!(example: 2022 6));
-        assert_eq!(day.part1(), "7");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part1(), "7");
     }
 
     #[test]
@@ -68,14 +68,14 @@ mod tests {
 
     #[test]
     fn test_part1_input() {
-        let day = Solution::with_input(input!(input: 2022 6));
-        assert_eq!(day.part1(), "1093");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part1(), "1093");
     }
 
     #[test]
     fn test_part2_example() {
-        let day = Solution::with_input(input!(example: 2022 6));
-        assert_eq!(day.part2(), "19");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part2(), "19");
     }
 
     #[test]
@@ -88,7 +88,7 @@ mod tests {
 
     #[test]
     fn test_part2_input() {
-        let day = Solution::with_input(input!(input: 2022 6));
-        assert_eq!(day.part2(), "3534");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part2(), "3534");
     }
 }

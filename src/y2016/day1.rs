@@ -103,29 +103,29 @@ mod tests {
 
     #[test]
     fn test_part1_example() {
-        let day = Solution::with_input(&mut "R2, L3".as_bytes());
-        assert_eq!(day.part1(), "5");
-        let day = Solution::with_input(&mut "R2, R2, R2".as_bytes());
-        assert_eq!(day.part1(), "2");
-        let day = Solution::with_input(&mut "R5, L5, R5, R3".as_bytes());
-        assert_eq!(day.part1(), "12");
+        let solution = Solution::with_input(&mut "R2, L3".as_bytes());
+        assert_eq!(solution.part1(), "5");
+        let solution = Solution::with_input(&mut "R2, R2, R2".as_bytes());
+        assert_eq!(solution.part1(), "2");
+        let solution = Solution::with_input(&mut "R5, L5, R5, R3".as_bytes());
+        assert_eq!(solution.part1(), "12");
     }
 
     #[test]
     fn test_part1_input() {
-        let day = Solution::with_input(input!(input: 2016 1));
-        assert_eq!(day.part1(), "301");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part1(), "301");
     }
 
     #[test]
     fn test_part2_example() {
-        let day = Solution::with_input(&mut "R8, R4, R4, R8".as_bytes());
-        assert_eq!(day.part2(), "4");
+        let solution = Solution::with_input(&mut "R8, R4, R4, R8".as_bytes());
+        assert_eq!(solution.part2(), "4");
     }
 
     #[test]
     fn test_part2_input() {
-        let day = Solution::with_input(input!(input: 2016 1));
-        assert_eq!(day.part2(), "130");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part2(), "130");
     }
 }

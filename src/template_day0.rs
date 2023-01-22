@@ -33,27 +33,27 @@ mod tests {
 
     #[test]
     fn test_part1_example() {
-        let day = Solution::with_input(input!(example: 2022 0));
-        assert_eq!(day.part1(), "");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part1(), "");
     }
 
     #[test]
     fn test_part1_input() {
-        let day = Solution::with_input(input!(input: 2022 0));
-        assert_eq!(day.part1(), "");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part1(), "");
     }
 
     #[test]
     #[ignore]
     fn test_part2_example() {
-        let day = Solution::with_input(input!(example: 2022 0));
-        assert_eq!(day.part2(), "");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part2(), "");
     }
 
     #[test]
     #[ignore]
     fn test_part2_input() {
-        let day = Solution::with_input(input!(input: 2022 0));
-        assert_eq!(day.part2(), "");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part2(), "");
     }
 }

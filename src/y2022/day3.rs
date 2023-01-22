@@ -70,25 +70,25 @@ mod tests {
 
     #[test]
     fn test_part1_example() {
-        let day = Solution::with_input(input!(example: 2022 3));
-        assert_eq!(day.part1(), "157");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part1(), "157");
     }
 
     #[test]
     fn test_part1_input() {
-        let day = Solution::with_input(input!(input: 2022 3));
-        assert_eq!(day.part1(), "7850");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part1(), "7850");
     }
 
     #[test]
     fn test_part2_example() {
-        let day = Solution::with_input(input!(example: 2022 3));
-        assert_eq!(day.part2(), "70");
+        let solution = Solution::with_input(input!(example));
+        assert_eq!(solution.part2(), "70");
     }
 
     #[test]
     fn test_part2_input() {
-        let day = Solution::with_input(input!(input: 2022 3));
-        assert_eq!(day.part2(), "2581");
+        let solution = Solution::with_input(input!(input));
+        assert_eq!(solution.part2(), "2581");
     }
 }

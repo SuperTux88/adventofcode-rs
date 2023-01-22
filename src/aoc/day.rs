@@ -36,3 +36,17 @@ pub trait DaySolution {
     fn part1(&self) -> String;
     fn part2(&self) -> String;
 }
+
+/// Parses the year and day from the given module name (for example with `module_path!()`)
+///
+/// For example, "adventofcode::y2022::day1::tests" will return (2022, 1).
+pub fn parse_year_and_day_from_module(module: &str) -> (u16, u8) {
+    println!("Parsing day from module: {}", module);
+    let mut parts = module.split("::");
+    if parts.next() != Some("adventofcode") {
+        panic!("Invalid module name: {}", module);
+    }
+    let year = parts.next().unwrap()[1..].parse().unwrap();
+    let day = parts.next().unwrap()[3..].parse().unwrap();
+    (year, day)
+}
