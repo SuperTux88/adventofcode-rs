@@ -8,11 +8,48 @@ use crate::aoc::{
     day::{Day, DaySolution},
     input,
     part::Part,
-    run,
 };
+
+use super::run::Run;
 
 const AOC_BENCH_LOOPS: u16 = 10;
 const AOC_BENCH_LOOPS_ENV_VAR: &str = "AOC_BENCH_LOOPS";
+
+pub struct Benchmark {}
+
+impl Run for Benchmark {
+    fn run(day: Day, part: &Part, input_path: &Path) -> Result<(), String> {
+        print!("{} day {:>2}: ", day.year, day.day);
+
+        let times = collect_times(day, input_path, part)?;
+
+        match part {
+            Part::Both => println!(
+                "parsing: {} | part 1: {} | part 2: {} | total: {}",
+                format_times(times.parsing),
+                format_times(times.part1),
+                format_times(times.part2),
+                format_times(times.total)
+            ),
+            part => {
+                let part_times = match part {
+                    Part::Part1 => times.part1,
+                    Part::Part2 => times.part2,
+                    Part::Both => unreachable!(),
+                };
+                println!(
+                    "parsing: {} | part {}: {} | total: {}",
+                    format_times(times.parsing),
+                    part,
+                    format_times(part_times),
+                    format_times(times.total)
+                )
+            }
+        };
+
+        Ok(())
+    }
+}
 
 #[derive(Default)]
 struct Times {
@@ -20,38 +57,6 @@ struct Times {
     part1: Vec<Duration>,
     part2: Vec<Duration>,
     total: Vec<Duration>,
-}
-
-pub fn run_benchmark(day: Day, part: &Part, path: &Path) -> Result<(), String> {
-    print!("{} day {:>2}: ", day.year, day.day);
-
-    let times = collect_times(day, path, part)?;
-
-    match part {
-        Part::Both => println!(
-            "parsing: {} | part 1: {} | part 2: {} | total: {}",
-            format_times(times.parsing),
-            format_times(times.part1),
-            format_times(times.part2),
-            format_times(times.total)
-        ),
-        part => {
-            let part_times = match part {
-                Part::Part1 => times.part1,
-                Part::Part2 => times.part2,
-                Part::Both => unreachable!(),
-            };
-            println!(
-                "parsing: {} | part {}: {} | total: {}",
-                format_times(times.parsing),
-                part,
-                format_times(part_times),
-                format_times(times.total)
-            )
-        }
-    };
-
-    Ok(())
 }
 
 fn collect_times(day: Day, input_path: &Path, part: &Part) -> Result<Times, String> {
@@ -80,7 +85,7 @@ fn collect_times(day: Day, input_path: &Path, part: &Part) -> Result<Times, Stri
 
 fn run_part(day: &dyn DaySolution, part: &Part) -> Duration {
     let start = Instant::now();
-    run::run_part(day, part);
+    part.run_for(day);
     start.elapsed()
 }
 

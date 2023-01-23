@@ -5,12 +5,9 @@ use yew::{
     macros::html,
 };
 
-use super::select::Select;
+use crate::{aoc::part::Part, Solutions};
 
-use crate::{
-    aoc::{part::Part, run},
-    Solutions,
-};
+use super::{run, select::Select};
 
 struct Selection {
     year: u16,

@@ -1,5 +1,7 @@
 use std::{fmt::Display, str::FromStr};
 
+use super::day::DaySolution;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Part {
     Part1,
@@ -10,6 +12,14 @@ pub enum Part {
 impl Part {
     pub fn values() -> Vec<Self> {
         vec![Self::Part1, Self::Part2, Self::Both]
+    }
+
+    pub fn run_for(&self, day: &dyn DaySolution) -> String {
+        match self {
+            Part::Part1 => day.part1(),
+            Part::Part2 => day.part2(),
+            Part::Both => format!("{} / {}", day.part1(), day.part2()),
+        }
     }
 }
 
@@ -33,5 +43,31 @@ impl Display for Part {
             Part::Part2 => write!(f, "2"),
             Part::Both => write!(f, "both"),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_run_for() {
+        struct TestSolution {}
+
+        impl DaySolution for TestSolution {
+            fn part1(&self) -> String {
+                "result1".to_string()
+            }
+
+            fn part2(&self) -> String {
+                "result2".to_string()
+            }
+        }
+
+        let solution = TestSolution {};
+
+        assert_eq!(Part::Part1.run_for(&solution), "result1");
+        assert_eq!(Part::Part2.run_for(&solution), "result2");
+        assert_eq!(Part::Both.run_for(&solution), "result1 / result2");
     }
 }

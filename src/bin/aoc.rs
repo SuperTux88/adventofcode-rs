@@ -10,19 +10,15 @@ use adventofcode::{
     aoc::{
         cli::{
             args::{Cli, Commands, RunArgs},
-            benchmark::run_benchmark,
+            benchmark::Benchmark,
+            print_results::{run_and_print_results, PrintResults},
+            run::{Run, RunFunction},
         },
         input, output,
         part::Part,
-        run,
     },
     Solutions,
 };
-
-enum RunMode {
-    Results,
-    Benchmark,
-}
 
 fn main() {
     let cli = Cli::parse();
@@ -36,7 +32,7 @@ fn main() {
             }
         }
 
-        Commands::Run(args) => run_solutions(&RunMode::Results, args),
+        Commands::Run(args) => run_solutions(PrintResults::run, args),
 
         Commands::Bench(args) => {
             if Some("-".to_string()) == args.input {
@@ -44,25 +40,26 @@ fn main() {
             }
 
             output::disable_output();
-            run_solutions(&RunMode::Benchmark, args)
+            run_solutions(Benchmark::run, args)
         }
     }
 }
 
-fn run_solutions(mode: &RunMode, args: &RunArgs) {
+fn run_solutions(run: RunFunction, args: &RunArgs) {
     let all_days = Solutions::days_for_year(args.year);
     if let Some(day) = args.day {
         if all_days.contains(&day) {
             match &args.input {
                 Some(stdin) if stdin == "-" => {
+                    // Handle stdin input, can only happen with normal `run` command
                     let mut stdin = BufReader::new(io::stdin());
                     let day = Solutions::get(args.year, day);
-                    run::run(day, &args.part, &mut stdin);
+                    run_and_print_results(day, &args.part, &mut stdin);
                 }
                 input => {
                     let input =
                         input_path_or_default(args.year, day, input.clone(), args.download());
-                    run_solution_with_mode(args.year, day, &args.part, &input, mode);
+                    run_solution(args.year, day, &args.part, &input, run);
                 }
             };
         } else {
@@ -84,7 +81,7 @@ fn run_solutions(mode: &RunMode, args: &RunArgs) {
         output::disable_debug();
         for day in all_days {
             let input = input_path_or_default(args.year, day, None, args.download());
-            run_solution_with_mode(args.year, day, &args.part, &input, mode);
+            run_solution(args.year, day, &args.part, &input, run);
         }
     }
 }
@@ -98,22 +95,12 @@ fn input_path_or_default(year: u16, day: u8, input: Option<String>, download: bo
     })
 }
 
-fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &Path, mode: &RunMode) {
+fn run_solution(year: u16, day: u8, part: &Part, path: &Path, run: RunFunction) {
     let day = Solutions::get(year, day);
-    match mode {
-        RunMode::Results => match input::read_input(path) {
-            Ok(mut input) => {
-                run::run(day, part, &mut input);
-            }
-            Err(e) => exit_error(e),
-        },
-        RunMode::Benchmark => {
-            match run_benchmark(day, part, path) {
-                Ok(()) => {}
-                Err(e) => exit_error(e),
-            };
-        }
-    }
+    match run(day, part, path) {
+        Ok(()) => {}
+        Err(e) => exit_error(e),
+    };
 }
 
 fn exit_error(e: String) -> ! {
