@@ -1,5 +1,5 @@
 use std::io::{self, BufReader};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process;
 
 use clap::Parser;
@@ -98,7 +98,7 @@ fn input_path_or_default(year: u16, day: u8, input: Option<String>, download: bo
     })
 }
 
-fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &PathBuf, mode: &RunMode) {
+fn run_solution_with_mode(year: u16, day: u8, part: &Part, path: &Path, mode: &RunMode) {
     let day = Solutions::get(year, day);
     match mode {
         RunMode::Results => match input::read_input(path) {

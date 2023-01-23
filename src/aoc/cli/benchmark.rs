@@ -1,6 +1,6 @@
 use std::{
     env,
-    path::PathBuf,
+    path::Path,
     time::{Duration, Instant},
 };
 
@@ -22,7 +22,7 @@ struct Times {
     total: Vec<Duration>,
 }
 
-pub fn run_benchmark(day: Day, part: &Part, path: &PathBuf) -> Result<(), String> {
+pub fn run_benchmark(day: Day, part: &Part, path: &Path) -> Result<(), String> {
     print!("{} day {:>2}: ", day.year, day.day);
 
     let times = collect_times(day, path, part)?;
@@ -54,7 +54,7 @@ pub fn run_benchmark(day: Day, part: &Part, path: &PathBuf) -> Result<(), String
     Ok(())
 }
 
-fn collect_times(day: Day, input_path: &PathBuf, part: &Part) -> Result<Times, String> {
+fn collect_times(day: Day, input_path: &Path, part: &Part) -> Result<Times, String> {
     let mut times = Times::default();
 
     let loops = env::var(AOC_BENCH_LOOPS_ENV_VAR)

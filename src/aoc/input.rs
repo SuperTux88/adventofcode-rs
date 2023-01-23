@@ -1,7 +1,7 @@
 use std::{
     fs::File,
     io::{BufRead, BufReader},
-    path::PathBuf,
+    path::{Path, PathBuf},
 };
 
 #[cfg(feature = "online")]
@@ -19,11 +19,11 @@ pub fn get_input_subpath(year: u16, day: u8) -> PathBuf {
 }
 
 /// Reads the input file
-pub fn read_input(path: &PathBuf) -> Result<impl BufRead, String> {
-    let file = File::open(path).map_err(|error| {
+pub fn read_input<P: AsRef<Path>>(path: P) -> Result<impl BufRead, String> {
+    let file = File::open(&path).map_err(|error| {
         format!(
             "Error opening input file ({}): {}",
-            path.as_path().display(),
+            path.as_ref().display(),
             error
         )
     })?;

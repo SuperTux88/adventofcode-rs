@@ -1,4 +1,8 @@
-use std::{env, error::Error, path::PathBuf};
+use std::{
+    env,
+    error::Error,
+    path::{Path, PathBuf},
+};
 
 use dirs::{cache_dir, config_dir, home_dir};
 use reqwest::{
@@ -81,7 +85,7 @@ fn get_aoc_session() -> Result<String, String> {
 }
 
 /// Downloads the input for the given year and day from adventofcode.com to the given path.
-fn download_input(year: u16, day: u8, input_path: &PathBuf) -> Result<(), Box<dyn Error>> {
+fn download_input(year: u16, day: u8, input_path: &Path) -> Result<(), Box<dyn Error>> {
     let url = format!("https://adventofcode.com/{}/day/{}/input", year, day);
 
     let client = Client::builder().gzip(true).build().unwrap();
@@ -98,7 +102,7 @@ fn download_input(year: u16, day: u8, input_path: &PathBuf) -> Result<(), Box<dy
     let mut file = std::fs::File::create(input_path).map_err(|error| {
         format!(
             "Error creating input file ({}): {}",
-            input_path.as_path().display(),
+            input_path.display(),
             error
         )
     })?;
