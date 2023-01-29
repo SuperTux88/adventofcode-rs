@@ -3,6 +3,7 @@ name = "adventofcode"
 version = "0.1.0"
 authors = ["Benjamin Neff"]
 edition = "2021"
+publish = false
 
 description = "Advent of Code in Rust"
 repository = "https://github.com/SuperTux88/adventofcode-rs"
