@@ -71,13 +71,6 @@ fn run_solutions(run: RunFunction, args: &RunArgs) {
             ));
         }
     } else {
-        if args.input.is_some() {
-            exit_error(format!(
-                "{} can only be specified when {} is specified",
-                "--input".yellow(),
-                "--day".yellow()
-            ));
-        }
         output::disable_debug();
         for day in all_days {
             let input = input_path_or_default(args.year, day, None, args.download());

@@ -43,7 +43,7 @@ pub struct RunArgs {
     pub part: Part,
 
     /// Input file to use, use '-' for stdin [default: input/<year>/day<day>.txt]
-    #[arg(short, long, group = "input-args")]
+    #[arg(short, long, group = "input-args", requires = "day")]
     pub input: Option<String>,
 
     /// Download and cache input file
