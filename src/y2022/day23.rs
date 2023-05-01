@@ -93,7 +93,7 @@ fn get_prefered_target(elves: &HashSet<IVec2>, elf: &IVec2, round: u16) -> Optio
     if elf.neighbors().iter().all(|n| !elves.contains(n)) {
         None
     } else {
-        (0..4).into_iter().find_map(|offset| {
+        (0..4).find_map(|offset| {
             let direction = DIRECTIONS[(round + offset) as usize % 4];
             let checks = direction.map(|d| *elf + d);
             if checks.iter().all(|n| !elves.contains(n)) {
