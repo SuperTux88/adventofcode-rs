@@ -5,8 +5,7 @@ use std::{
 
 use nom::{
     branch::alt,
-    bytes::complete::tag,
-    character::complete::{self, newline},
+    character::complete::{self, char, newline},
     multi::{many1, separated_list0, separated_list1},
     sequence::delimited,
     IResult, Parser,
@@ -57,7 +56,7 @@ fn packets(input: &str) -> IResult<&str, Vec<Packet>> {
 
 fn packet(input: &str) -> IResult<&str, Packet> {
     alt((
-        delimited(tag("["), separated_list0(tag(","), packet), tag("]")).map(Packet::List),
+        delimited(char('['), separated_list0(char(','), packet), char(']')).map(Packet::List),
         complete::u8.map(Packet::Number),
     ))(input)
 }

@@ -4,8 +4,7 @@ use std::{
 };
 
 use nom::{
-    bytes::complete::tag,
-    character::complete::{self, newline},
+    character::complete::{self, char, newline},
     multi::separated_list1,
     sequence::separated_pair,
     IResult,
@@ -51,12 +50,12 @@ fn pairs(input: &str) -> IResult<&str, Vec<Pair>> {
 }
 
 fn pair(input: &str) -> IResult<&str, Pair> {
-    let (input, (range_a, range_b)) = separated_pair(range, tag(","), range)(input)?;
+    let (input, (range_a, range_b)) = separated_pair(range, char(','), range)(input)?;
     Ok((input, Pair { range_a, range_b }))
 }
 
 fn range(input: &str) -> IResult<&str, RangeInclusive<u32>> {
-    let (input, (start, end)) = separated_pair(complete::u32, tag("-"), complete::u32)(input)?;
+    let (input, (start, end)) = separated_pair(complete::u32, char('-'), complete::u32)(input)?;
     Ok((input, start..=end))
 }
 
