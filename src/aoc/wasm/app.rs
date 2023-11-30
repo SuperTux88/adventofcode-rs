@@ -3,6 +3,7 @@ use yew::{
     functional::{function_component, use_node_ref, use_state},
     html::Html,
     macros::html,
+    ToHtml,
 };
 
 use crate::{aoc::part::Part, Solutions};
@@ -13,6 +14,16 @@ struct Selection {
     year: u16,
     day: u8,
     part: Part,
+}
+
+impl ToHtml for Part {
+    fn to_html(&self) -> Html {
+        match self {
+            Part::Part1 => html! { "1" },
+            Part::Part2 => html! { "2" },
+            Part::Both => html! { "both" },
+        }
+    }
 }
 
 #[function_component]

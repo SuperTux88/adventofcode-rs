@@ -4,7 +4,7 @@ use std::{
 };
 
 use web_sys::HtmlSelectElement;
-use yew::{function_component, html, use_node_ref, Callback, Html, Properties};
+use yew::{function_component, html, use_node_ref, Callback, Html, Properties, ToHtml};
 
 #[derive(Properties, PartialEq)]
 pub struct SelectProps<T>
@@ -19,7 +19,7 @@ where
 #[function_component]
 pub fn Select<T>(props: &SelectProps<T>) -> Html
 where
-    T: PartialEq + Display + FromStr + 'static,
+    T: PartialEq + Display + FromStr + ToHtml + 'static,
     <T as FromStr>::Err: Debug,
 {
     let selected = props.selected.as_ref();
