@@ -3,6 +3,15 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
+  2023 - 4 ⭐
+</h1>
+<a href="src/y2023/day1.rs">
+  <img src="AoCTiles/2023/01.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day2.scala">
+  <img src="AoCTiles/2023/02.png" width="161px">
+</a>
+<h1 align="center">
   2022 - 50 ⭐
 </h1>
 <a href="src/y2022/day1.rs">

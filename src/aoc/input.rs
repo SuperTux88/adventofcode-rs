@@ -80,4 +80,9 @@ macro_rules! input {
         let example_path = format!("input/{}/example/day{}.txt", year, day);
         &mut $crate::aoc::input::read_input(&std::path::PathBuf::from(example_path)).unwrap()
     }};
+    (example, $suffix:literal) => {{
+        let (year, day) = $crate::aoc::day::parse_year_and_day_from_module(module_path!());
+        let example_path = format!("input/{}/example/day{}_{}.txt", year, day, $suffix);
+        &mut $crate::aoc::input::read_input(&std::path::PathBuf::from(example_path)).unwrap()
+    }};
 }
