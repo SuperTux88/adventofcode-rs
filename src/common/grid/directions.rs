@@ -89,6 +89,14 @@ pub trait Directions {
     fn neighbors(&self) -> Vec<Self>
     where
         Self: Sized;
+
+    fn direction(&self, other: &Self) -> Self
+    where
+        Self: Sized;
+
+    fn line_to(&self, other: &Self) -> Box<dyn Iterator<Item = Self> + '_>
+    where
+        Self: Sized;
 }
 
 impl Directions for IVec2 {
@@ -113,5 +121,30 @@ impl Directions for IVec2 {
 
     fn neighbors(&self) -> Vec<Self> {
         NEIGHBORS.into_iter().map(|dir| *self + dir).collect()
+    }
+
+    fn direction(&self, other: &Self) -> Self {
+        let x = other.x.cmp(&self.x);
+        let y = other.y.cmp(&self.y);
+        IVec2::new(x as i32, y as i32)
+    }
+
+    /// Returns an iterator over the line between `self` and `other`.
+    /// The iterator includes `self` and `other`.
+    ///
+    /// ```
+    /// # use glam::IVec2;
+    /// # use adventofcode::common::grid::directions::Directions;
+    /// #
+    /// let start = IVec2::new(2, 0);
+    /// let end = IVec2::new(5, 3);
+    /// let line = start.line_to(&end).collect::<Vec<_>>();
+    /// assert_eq!(line, vec![IVec2::new(2, 0), IVec2::new(3, 1), IVec2::new(4, 2), IVec2::new(5, 3)]);
+    /// ```
+    fn line_to(&self, other: &Self) -> Box<dyn Iterator<Item = Self> + '_> {
+        let direction = self.direction(other);
+        let diff = *other - *self;
+        let distance = diff.x.max(diff.y).abs();
+        Box::new((0..=distance).map(move |i| *self + direction * i))
     }
 }
