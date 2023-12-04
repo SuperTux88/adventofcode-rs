@@ -17,7 +17,7 @@ repos:
     -   id: clippy
         args: ["--all-features", "--", "--deny", "warnings"]
 -   repo: https://github.com/SuperTux88/adventofcode
-    rev: be47fef7ad6593dba87e12fa5b617d9ebe133008 # current version
+    rev: 60a99126a98db97bb1b3ce3becad488456969e48 # current version
     hooks:
     -   id: create-day-tiles
         # only run when a new input file gets added, which means a new day was added
