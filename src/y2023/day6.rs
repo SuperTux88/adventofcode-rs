@@ -21,7 +21,6 @@ impl DayParser for Solution {
     fn with_input(input: &mut dyn BufRead) -> Self {
         let input = io::read_to_string(input).unwrap();
         let (_, (time, distance)) = parse(input.as_str()).unwrap();
-
         Self { time, distance }
     }
 }
@@ -43,7 +42,7 @@ impl DaySolution for Solution {
         self.time
             .iter()
             .zip(self.distance.iter())
-            .map(|(time, distance)| count_wins(time, distance))
+            .map(|(time, distance)| calculate_wins(time, distance))
             .product::<u64>()
             .to_string()
     }
@@ -51,19 +50,18 @@ impl DaySolution for Solution {
     fn part2(&self) -> String {
         let time = self.time.join("");
         let distance = self.distance.join("");
-        count_wins(&time, &distance).to_string()
+        calculate_wins(&time, &distance).to_string()
     }
 }
 
-fn count_wins(time: &str, distance: &str) -> u64 {
-    let time = time.parse::<u64>().unwrap();
-    let distance = distance.parse::<u64>().unwrap();
+fn calculate_wins(time: &str, distance: &str) -> u64 {
+    let time = time.parse::<f64>().unwrap();
+    let distance = distance.parse::<f64>().unwrap();
 
-    (1..=time / 2)
-        .filter(|push_time| push_time * (time - push_time) > distance)
-        .count() as u64
-        * 2
-        - ((time - 1) % 2)
+    // Use quadratic formula to find the time at which it starts to win against the distance
+    let start = (time - (time.powi(2) - 4.0 * distance).sqrt()) / 2.0;
+    // There is an equal ammount of seconds also at the end, where it doesn't win. So just removing these twice works.
+    (time - 2.0 * (start + 1.0).floor() + 1.0) as u64
 }
 
 #[cfg(test)]
