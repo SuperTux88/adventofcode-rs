@@ -62,5 +62,5 @@ aoc_solutions!(
     y2016: day1;
     y2021: day1;
     y2022: day1, day3, day4, day6, day10, day13, day16, day17, day23, day24, day25;
-    y2023: day1, day2, day3, day4, day6, day7, day8, day9;
+    y2023: day1, day2, day3, day4, day6, day7, day8, day9, day12;
 );
