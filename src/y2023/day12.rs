@@ -66,14 +66,14 @@ impl DaySolution for Solution {
     fn part1(&self) -> String {
         self.records_iter()
             .map(|record| record.valid_arrangements())
-            .sum::<usize>()
+            .sum::<u64>()
             .to_string()
     }
 
     fn part2(&self) -> String {
         self.records_iter()
             .map(|record| record.unfold(5).valid_arrangements())
-            .sum::<usize>()
+            .sum::<u64>()
             .to_string()
     }
 }
@@ -91,7 +91,7 @@ impl Solution {
 }
 
 impl Record {
-    fn valid_arrangements(&self) -> usize {
+    fn valid_arrangements(&self) -> u64 {
         valid_arrangements_cached(&mut HashMap::new(), &self.springs, &self.damaged_groups)
     }
 
@@ -113,10 +113,10 @@ impl Record {
 }
 
 fn valid_arrangements_cached(
-    cache: &mut HashMap<(usize, usize), usize>,
+    cache: &mut HashMap<(usize, usize), u64>,
     springs: &[Condition],
     damaged_groups: &[usize],
-) -> usize {
+) -> u64 {
     cache
         .get(&(springs.len(), damaged_groups.len()))
         .copied()
