@@ -100,7 +100,7 @@ impl DaySolution for Solution {
 }
 
 impl Solution {
-    fn find_target(&self, start: &str, is_target: fn(&str) -> bool) -> usize {
+    fn find_target(&self, start: &str, is_target: fn(&str) -> bool) -> u64 {
         let mut current_node = start;
         self.instructions
             .iter()
@@ -112,7 +112,7 @@ impl Solution {
                     Direction::Right => &self.network[current_node].right,
                 };
                 if is_target(next_node) {
-                    Some(dist + 1)
+                    Some(dist as u64 + 1)
                 } else {
                     current_node = next_node;
                     None
