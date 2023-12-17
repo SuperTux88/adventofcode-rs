@@ -35,7 +35,7 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 <a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day10.scala">
   <img src="AoCTiles/2023/10.png" width="161px">
 </a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day11.scala">
+<a href="src/y2023/day11.rs">
   <img src="AoCTiles/2023/11.png" width="161px">
 </a>
 <a href="src/y2023/day12.rs">

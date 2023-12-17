@@ -10,11 +10,11 @@ use crate::{
     aoc::day::{DayParser, DaySolution},
     common::{
         grid::{
-            self,
             directions::{
                 Directions, BOTTOM_LEFT, BOTTOM_RIGHT, DOWN, LEFT, RIGHT, TOP_LEFT, TOP_RIGHT, UP,
             },
             minmax::minmax_ivec2,
+            parse_set,
         },
         parsing::lines_iter,
     },
@@ -35,7 +35,7 @@ pub struct Solution {
 
 impl DayParser for Solution {
     fn with_input(input: &mut dyn BufRead) -> Self {
-        let elves = grid::parse_set(lines_iter(input));
+        let elves = parse_set(lines_iter(input));
         Self { elves }
     }
 }

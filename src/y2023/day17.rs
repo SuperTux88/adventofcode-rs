@@ -14,7 +14,8 @@ use crate::{
         grid::{
             directions::{Direction, Turn},
             distance::ManhattenDistance,
-            minmax, parse_map, print_area,
+            minmax::minmax_ivec2,
+            parse_map, print_area,
             walk::Walk,
         },
         parsing::lines_iter,
@@ -44,7 +45,7 @@ pub struct Solution {
 impl DayParser for Solution {
     fn with_input(input: &mut dyn BufRead) -> Self {
         let map = parse_map(lines_iter(input), |c| c.to_digit(10).unwrap() as u8);
-        let (_, target) = minmax::minmax_ivec2(map.keys());
+        let (_, target) = minmax_ivec2(map.keys());
         Self { map, target }
     }
 }
