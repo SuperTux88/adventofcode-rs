@@ -1,6 +1,7 @@
 use std::collections::{HashMap, HashSet};
 
 use glam::IVec2;
+use itertools::Itertools;
 
 use crate::output;
 
@@ -37,6 +38,13 @@ pub fn parse_map<T>(
                 .collect::<HashMap<IVec2, T>>()
         })
         .collect()
+}
+
+pub fn parse_vec<T>(lines: impl Iterator<Item = String>, parse_char: fn(char) -> T) -> Vec<Vec<T>> {
+    lines
+        .enumerate()
+        .map(move |(_, line)| line.chars().map(parse_char).collect_vec())
+        .collect_vec()
 }
 
 pub fn print_set(set: &HashSet<IVec2>) {

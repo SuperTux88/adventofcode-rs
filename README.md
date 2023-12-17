@@ -3,7 +3,7 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2023 - 26 ⭐
+  2023 - 34 ⭐
 </h1>
 <a href="src/y2023/day1.rs">
   <img src="AoCTiles/2023/01.png" width="161px">
@@ -41,8 +41,20 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 <a href="src/y2023/day12.rs">
   <img src="AoCTiles/2023/12.png" width="161px">
 </a>
-<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day13.scala">
+<a href="src/y2023/day13.rs">
   <img src="AoCTiles/2023/13.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day14.scala">
+  <img src="AoCTiles/2023/14.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day15.scala">
+  <img src="AoCTiles/2023/15.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day16.scala">
+  <img src="AoCTiles/2023/16.png" width="161px">
+</a>
+<a href="https://github.com/SuperTux88/adventofcode/blob/main/src/main/scala/adventofcode/y2023/Day17.scala">
+  <img src="AoCTiles/2023/17.png" width="161px">
 </a>
 <h1 align="center">
   2022 - 50 ⭐
