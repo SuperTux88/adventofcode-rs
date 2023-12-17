@@ -24,7 +24,7 @@ pub const NEIGHBORS: [IVec2; 8] = [
 ];
 
 #[repr(u8)]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Direction {
     Up = 0,
     Right = 1,

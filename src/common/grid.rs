@@ -69,6 +69,21 @@ pub fn print_set_range(set: &HashSet<IVec2>, range: (IVec2, IVec2)) {
     }
 }
 
+pub fn print_area<F>(area: (IVec2, IVec2), map_pos: F)
+where
+    F: Fn(IVec2) -> String,
+{
+    if output::is_debug_enabled() {
+        for y in area.0.y..=area.1.y {
+            output::println_debug(
+                (area.0.x..=area.1.x)
+                    .map(|x| map_pos(IVec2::new(x, y)))
+                    .collect(),
+            );
+        }
+    }
+}
+
 pub fn print_grid<T>(grid: &[&[T]], map_to_char: fn(&T) -> char) {
     if output::is_debug_enabled() {
         for &row in grid {
