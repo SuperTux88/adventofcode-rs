@@ -5,6 +5,7 @@ use itertools::Itertools;
 
 use crate::output;
 
+pub mod area;
 pub mod directions;
 pub mod distance;
 pub mod minmax;
