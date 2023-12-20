@@ -1,10 +1,14 @@
 use std::{fmt::Display, str::FromStr};
 
+use clap::ValueEnum;
+
 use super::day::DaySolution;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(ValueEnum, Clone, Copy, PartialEq, Eq)]
 pub enum Part {
+    #[value(name = "1")]
     Part1,
+    #[value(name = "2")]
     Part2,
     Both,
 }
