@@ -4,6 +4,8 @@ use std::{
     time::{Duration, Instant},
 };
 
+use colored::Colorize;
+
 use crate::aoc::{
     day::{Day, DaySolution},
     input,
@@ -25,10 +27,14 @@ impl Run for Benchmark {
 
         match part {
             Part::Both => println!(
-                "parsing: {} | part 1: {} | part 2: {} | total: {}",
+                "{} {} | {} {} | {} {} | {} {}",
+                "parsing:".white(),
                 format_times(times.parsing),
+                "part 1:".white(),
                 format_times(times.part1),
+                "part 2:".white(),
                 format_times(times.part2),
+                "total:".white(),
                 format_times(times.total)
             ),
             part => {
@@ -38,10 +44,12 @@ impl Run for Benchmark {
                     Part::Both => unreachable!(),
                 };
                 println!(
-                    "parsing: {} | part {}: {} | total: {}",
+                    "{} {} | {} {} | {} {}",
+                    "parsing:".white(),
                     format_times(times.parsing),
-                    part,
+                    format!("part {}:", part).white(),
                     format_times(part_times),
+                    "total:".white(),
                     format_times(times.total)
                 )
             }
@@ -93,5 +101,14 @@ fn format_times(times: Vec<Duration>) -> String {
     let avg = times.iter().sum::<Duration>() / times.len() as u32;
     let min = times.iter().min().unwrap();
     let max = times.iter().max().unwrap();
-    format!("({:>8.2?} / {:>8.2?} / {:>8.2?})", min, avg, max)
+    format!(
+        "({} / {} / {})",
+        format_time(min).green(),
+        format_time(&avg).yellow(),
+        format_time(max).red()
+    )
+}
+
+fn format_time(time: &Duration) -> String {
+    format!("{:>8.2?}", time)
 }

@@ -29,7 +29,11 @@ fn main() {
             println!("Currently implemented solutions:");
             let years = Solutions::years();
             for year in years {
-                println!("\t{}: {}", year, join(Solutions::days_for_year(year), ", "));
+                println!(
+                    "\t{}: {}",
+                    year.to_string().white(),
+                    join(Solutions::days_for_year(year), ", ")
+                );
             }
         }
 
