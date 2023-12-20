@@ -46,10 +46,10 @@ case "${COMMAND}" in
         exec cargo test ${COLOR} -- ${COLOR} "${TEST_ARGS}"
         ;;
     "run")
-        exec cargo run ${COLOR} ${RELEASE} -- run ${RUN_ARGS}
+        exec cargo run ${COLOR} ${RELEASE} -- ${COLOR} run ${RUN_ARGS}
         ;;
     "bench")
-        exec cargo run ${COLOR} ${RELEASE} -- bench ${RUN_ARGS}
+        exec cargo run ${COLOR} ${RELEASE} -- ${COLOR} bench ${RUN_ARGS}
         ;;
     "criterion")
         exec cargo bench ${COLOR} --bench solutions -- ${COLOR} "${BENCH_ARGS}"

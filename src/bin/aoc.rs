@@ -22,6 +22,7 @@ use adventofcode::{
 
 fn main() {
     let cli = Cli::parse();
+    cli.color.set_color_mode_override();
 
     match &cli.command {
         Commands::List => {

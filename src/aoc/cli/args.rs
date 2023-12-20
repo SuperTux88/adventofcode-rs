@@ -1,4 +1,4 @@
-use clap::{ArgGroup, Args, Parser, Subcommand};
+use clap::{ArgGroup, Args, Parser, Subcommand, ValueEnum};
 use itertools::join;
 
 use crate::{aoc::part::Part, Solutions};
@@ -11,6 +11,10 @@ use crate::{aoc::part::Part, Solutions};
 \taoc bench [-y <year>] [-d <day>] [-p <part>] [-i <input>]
 ")]
 pub struct Cli {
+    /// When to produce colored output
+    #[arg(long, value_enum, value_name = "WHEN", default_value_t = ColorMode::Auto)]
+    pub color: ColorMode,
+
     #[command(subcommand)]
     pub command: Commands,
 }
@@ -63,6 +67,26 @@ impl RunArgs {
         {
             false
         }
+    }
+}
+
+#[derive(ValueEnum, Clone)]
+pub enum ColorMode {
+    /// Automatically detect if the output is a terminal and use colors if so.
+    Auto,
+    /// Never produce colored output.
+    Never,
+    /// Always produce colored output.
+    Always,
+}
+
+impl ColorMode {
+    pub fn set_color_mode_override(&self) {
+        match self {
+            ColorMode::Always => colored::control::set_override(true),
+            ColorMode::Never => colored::control::set_override(false),
+            ColorMode::Auto => (),
+        };
     }
 }
 
