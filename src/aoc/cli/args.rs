@@ -46,7 +46,7 @@ pub struct RunArgs {
     #[arg(short, long, value_enum, default_value_t = Part::Both)]
     pub part: Part,
 
-    /// Input file to use, use '-' for stdin [default: input/<year>/day<day>.txt]
+    /// Input file to use, use '-' for stdin [default: `input/<year>/day<day>.txt`]
     #[arg(short, long, group = "input-args", requires = "day")]
     pub input: Option<String>,
 

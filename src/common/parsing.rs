@@ -25,7 +25,7 @@ pub fn lines_vec(input: &mut dyn BufRead) -> Vec<String> {
     lines_iter(input).collect()
 }
 
-/// Parse all lines of the input to a Vec<T>.
+/// Parse all lines of the input to a `Vec<T>`.
 ///
 /// ```
 /// # use adventofcode::common::parsing::parse_lines_vec;

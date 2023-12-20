@@ -2,7 +2,7 @@ use glam::IVec2;
 use itertools::Itertools;
 
 /// Calculate the area of a polygon defined by the corners of the perimeter.
-/// Using the shoelace formula: https://en.wikipedia.org/wiki/Shoelace_formula
+/// Using the shoelace formula: <https://en.wikipedia.org/wiki/Shoelace_formula>
 ///
 /// To also add the outer-half of the perimeter line, you need to add `(premiter / 2) + 1` to get the full area.
 pub fn shoelace_area(perimeter: &[IVec2]) -> i64 {
