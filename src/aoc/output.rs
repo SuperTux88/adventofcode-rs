@@ -31,20 +31,20 @@ pub fn is_debug_enabled() -> bool {
 /// Prints a message with newline to stdout if output is enabled
 pub fn println(msg: String) {
     if OUTPUT.load(Ordering::Relaxed) {
-        #[cfg(feature = "wasm")]
+        #[cfg(all(feature = "wasm", target_arch = "wasm32"))]
         log(&msg);
 
-        #[cfg(not(feature = "wasm"))]
+        #[cfg(not(all(feature = "wasm", target_arch = "wasm32")))]
         println!("{}", msg);
     }
 }
 
 pub fn println_debug(msg: String) {
     if DEBUG.load(Ordering::Relaxed) {
-        #[cfg(feature = "wasm")]
+        #[cfg(all(feature = "wasm", target_arch = "wasm32"))]
         log(&msg);
 
-        #[cfg(not(feature = "wasm"))]
+        #[cfg(not(all(feature = "wasm", target_arch = "wasm32")))]
         println!("│  {}", msg);
     }
 }
