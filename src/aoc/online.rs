@@ -52,7 +52,7 @@ fn get_aoc_session() -> Result<String, String> {
     match env::var(AOC_SESSION_ENV_VAR) {
         Ok(session) => Ok(session),
         Err(_) => {
-            let session_files = vec![
+            let session_files = [
                 home_dir().map(|h| h.join(".adventofcode.session")),
                 config_dir().map(|h| h.join("adventofcode.session")),
             ];

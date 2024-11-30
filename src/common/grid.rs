@@ -43,8 +43,7 @@ pub fn parse_map<T>(
 
 pub fn parse_vec<T>(lines: impl Iterator<Item = String>, parse_char: fn(char) -> T) -> Vec<Vec<T>> {
     lines
-        .enumerate()
-        .map(move |(_, line)| line.chars().map(parse_char).collect_vec())
+        .map(move |line| line.chars().map(parse_char).collect_vec())
         .collect_vec()
 }
 
