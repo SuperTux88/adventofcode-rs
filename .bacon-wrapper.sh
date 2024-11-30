@@ -10,7 +10,7 @@ while [[ $# -gt 0 ]]; do
       shift;;
     -d|--day)
       DAY="$2"
-      YEAR=${YEAR:-2023}
+      YEAR=${YEAR:-2024}
       shift;;
     -r|--release)
       RELEASE="--release"

@@ -35,7 +35,7 @@ pub enum Commands {
 #[clap(group = ArgGroup::new("input-args").multiple(false))]
 pub struct RunArgs {
     /// Year to execute
-    #[arg(short, long, default_value_t = 2023, value_parser = parse_year)]
+    #[arg(short, long, default_value_t = 2024, value_parser = parse_year)]
     pub year: u16,
 
     /// Day to execute
