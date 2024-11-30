@@ -1,5 +1,6 @@
 [build]
 target = "www/index.html"
+dist = "www/dist"
 
 [watch]
 watch = ["src", "www"]

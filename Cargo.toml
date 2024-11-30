@@ -14,26 +14,26 @@ default-run = "aoc"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-clap = { version = "4.0.29", features = ["derive"] }
-colored = "2.0.0"
-dirs = { version = "5.0.1", optional = true }
-glam = "0.24.2"
-itertools = "0.12.0"
-nom = "7.1.1"
-num = "0.4.0"
-pathfinding = "4.2.0"
-rayon = { version = "1.6.1", optional = true }
-wasm-bindgen = { version = "0.2.83", optional = true }
-yew = { version = "0.21.0", features = ["csr"], optional = true }
+clap = { version = "4", features = ["derive"] }
+colored = "2"
+dirs = { version = "5", optional = true }
+glam = "0.29"
+itertools = "0.13"
+nom = "7"
+num = "0.4"
+pathfinding = "4"
+rayon = { version = "1", optional = true }
+wasm-bindgen = { version = "0.2", optional = true }
+yew = { version = "0.21", features = ["csr"], optional = true }
 
 [dependencies.reqwest]
-version = "0.11.13"
+version = "0.12"
 optional = true
 default-features = false
 features = ["blocking", "gzip", "rustls-tls"]
 
 [dependencies.web-sys]
-version = "0.3.60"
+version = "0.3"
 optional = true
 features = [
   "HtmlSelectElement",
@@ -41,7 +41,7 @@ features = [
 ]
 
 [target.'cfg(not(all(target_arch = "wasm32", not(any(target_os = "emscripten", target_os = "wasi")))))'.dev-dependencies]
-criterion = { version = "0.5.1", features = ["html_reports"] }
+criterion = { version = "0.5", features = ["html_reports"] }
 
 [features]
 default = ["online", "parallel"]
@@ -76,9 +76,6 @@ opt-level = "s"
 opt-level = "s"
 
 [profile.release.package.ring]
-opt-level = "s"
-
-[profile.release.package.h2]
 opt-level = "s"
 
 [profile.release.package.clap]
