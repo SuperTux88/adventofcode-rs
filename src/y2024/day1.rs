@@ -1,11 +1,14 @@
-use std::io::BufRead;
+use std::io::{self, BufRead};
 
 use itertools::Itertools;
-
-use crate::{
-    aoc::day::{DayParser, DaySolution},
-    common::parsing::lines_iter,
+use nom::{
+    character::complete::{self, newline, space1},
+    multi::separated_list1,
+    sequence::separated_pair,
+    IResult,
 };
+
+use crate::aoc::day::{DayParser, DaySolution};
 
 pub const TITLE: &str = "Historian Hysteria";
 
@@ -16,18 +19,21 @@ pub struct Solution {
 
 impl DayParser for Solution {
     fn with_input(input: &mut dyn BufRead) -> Self {
-        let (mut list1, mut list2) = (vec![], vec![]);
-        lines_iter(input).for_each(|line| {
-            let mut parts = line.split("   ");
-            list1.push(parts.next().unwrap().parse::<u32>().unwrap());
-            list2.push(parts.next().unwrap().parse::<u32>().unwrap());
-        });
-
-        list1.sort();
-        list2.sort();
-
+        let input = io::read_to_string(input).unwrap();
+        let (_, (list1, list2)) = lists(input.as_str()).unwrap();
         Self { list1, list2 }
     }
+}
+
+fn lists(input: &str) -> IResult<&str, (Vec<u32>, Vec<u32>)> {
+    let (input, pairs) = separated_list1(newline, pair)(input)?;
+    let (list1, list2) = pairs.into_iter().unzip();
+    Ok((input, (list1, list2)))
+}
+
+fn pair(input: &str) -> IResult<&str, (u32, u32)> {
+    let (input, (a, b)) = separated_pair(complete::u32, space1, complete::u32)(input)?;
+    Ok((input, (a, b)))
 }
 
 impl DaySolution for Solution {
@@ -35,7 +41,8 @@ impl DaySolution for Solution {
         let diffs = self
             .list1
             .iter()
-            .zip(self.list2.iter())
+            .sorted_unstable()
+            .zip(self.list2.iter().sorted_unstable())
             .map(|(&a, &b)| a.abs_diff(b));
         diffs.sum::<u32>().to_string()
     }
