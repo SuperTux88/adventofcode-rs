@@ -13,22 +13,22 @@ use crate::aoc::day::{DayParser, DaySolution};
 pub const TITLE: &str = "Historian Hysteria";
 
 pub struct Solution {
-    list1: Vec<u32>,
-    list2: Vec<u32>,
+    left: Vec<u32>,
+    right: Vec<u32>,
 }
 
 impl DayParser for Solution {
     fn with_input(input: &mut dyn BufRead) -> Self {
         let input = io::read_to_string(input).unwrap();
-        let (_, (list1, list2)) = lists(input.as_str()).unwrap();
-        Self { list1, list2 }
+        let (_, (left, right)) = lists(input.as_str()).unwrap();
+        Self { left, right }
     }
 }
 
 fn lists(input: &str) -> IResult<&str, (Vec<u32>, Vec<u32>)> {
     let (input, pairs) = separated_list1(newline, pair)(input)?;
-    let (list1, list2) = pairs.into_iter().unzip();
-    Ok((input, (list1, list2)))
+    let (left, right) = pairs.into_iter().unzip();
+    Ok((input, (left, right)))
 }
 
 fn pair(input: &str) -> IResult<&str, (u32, u32)> {
@@ -39,20 +39,20 @@ fn pair(input: &str) -> IResult<&str, (u32, u32)> {
 impl DaySolution for Solution {
     fn part1(&self) -> String {
         let diffs = self
-            .list1
+            .left
             .iter()
             .sorted_unstable()
-            .zip(self.list2.iter().sorted_unstable())
-            .map(|(&a, &b)| a.abs_diff(b));
+            .zip(self.right.iter().sorted_unstable())
+            .map(|(&l, &r)| l.abs_diff(r));
         diffs.sum::<u32>().to_string()
     }
 
     fn part2(&self) -> String {
-        let list2_counts = self.list2.iter().counts();
-        let scores = self.list1.iter().map(|a| {
-            list2_counts
-                .get(a)
-                .map(|&b| b * (*a as usize))
+        let right_counts = self.right.iter().counts();
+        let scores = self.left.iter().map(|l| {
+            right_counts
+                .get(l)
+                .map(|&r| r * (*l as usize))
                 .unwrap_or_default()
         });
         scores.sum::<usize>().to_string()
