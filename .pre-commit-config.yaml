@@ -13,9 +13,9 @@ repos:
     hooks:
     -   id: fmt
     -   id: cargo-check
-        args: ["--all-features"]
+        args: ["--all-targets", "--all-features"]
     -   id: clippy
-        args: ["--all-features", "--", "--deny", "warnings"]
+        args: ["--all-targets", "--all-features", "--", "--deny", "warnings"]
 -   repo: https://github.com/SuperTux88/adventofcode
     rev: 60a99126a98db97bb1b3ce3becad488456969e48 # current version
     hooks:

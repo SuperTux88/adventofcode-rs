@@ -18,7 +18,7 @@ mod tests {
 
     #[test]
     fn test_minmax_ivec2() {
-        let vecs = vec![
+        let vecs = [
             IVec2::new(-5, 0),
             IVec2::new(0, 0),
             IVec2::new(3, 3),
