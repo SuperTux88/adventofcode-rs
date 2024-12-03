@@ -23,6 +23,7 @@ nom = "7"
 num = "0.4"
 pathfinding = "4"
 rayon = { version = "1", optional = true }
+regex = "1.11.1"
 wasm-bindgen = { version = "0.2", optional = true }
 yew = { version = "0.21", features = ["csr"], optional = true }
 

@@ -31,6 +31,7 @@ dependencies = [
  "num",
  "pathfinding",
  "rayon",
+ "regex",
  "reqwest",
  "wasm-bindgen",
  "web-sys",

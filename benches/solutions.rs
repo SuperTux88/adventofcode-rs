@@ -64,5 +64,5 @@ benchmarks!(
     (Benchmark2021 / y2021: day1),
     (Benchmark2022 / y2022: day1, day3, day4, day6, day10, day13, day16, day17, day23, day24, day25),
     (Benchmark2023 / y2023: day1, day2, day3, day4, day6, day7, day8, day9, day11, day12, day13, day15, day17, day18),
-    (Benchmark2024 / y2024: day1, day2),
+    (Benchmark2024 / y2024: day1, day2, day3),
 );

@@ -3,13 +3,16 @@ Rust solutions for [Advent of Code](http://adventofcode.com/). My scala solution
 
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2024 - 4 ⭐
+  2024 - 6 ⭐
 </h1>
 <a href="src/y2024/day1.rs">
   <img src="AoCTiles/2024/01.png" width="161px">
 </a>
 <a href="src/y2024/day2.rs">
   <img src="AoCTiles/2024/02.png" width="161px">
+</a>
+<a href="src/y2024/day3.rs">
+  <img src="AoCTiles/2024/03.png" width="161px">
 </a>
 <h1 align="center">
   2023 - 50 ⭐
