@@ -81,12 +81,12 @@ impl DaySolution for Solution {
 impl Solution {
     #[cfg(not(feature = "parallel"))]
     fn records_iter(&self) -> Iter<'_, Record> {
-        return self.records.iter();
+        self.records.iter()
     }
 
     #[cfg(feature = "parallel")]
     fn records_iter(&self) -> impl ParallelIterator<Item = &Record> {
-        return self.records.par_iter();
+        self.records.par_iter()
     }
 }
 
