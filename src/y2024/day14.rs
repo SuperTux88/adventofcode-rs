@@ -22,6 +22,8 @@ pub const TITLE: &str = "Restroom Redoubt";
 pub const EXAMPLE_SIZE: IVec2 = IVec2 { x: 11, y: 7 };
 pub const INPUT_SIZE: IVec2 = IVec2 { x: 101, y: 103 };
 
+pub const OUTLIER_THRESHOLD: usize = 30; // how many robots on the same row/col
+
 #[derive(Debug, Clone)]
 struct Robot {
     position: IVec2,
@@ -91,28 +93,36 @@ impl DaySolution for Solution {
 
     fn part2(&self) -> String {
         let mut robots = self.robots.clone();
-        let mut second = 0;
+
+        let x_outlier = find_first_outlier(&robots, self.size, |p| p.x);
+
+        for robot in &mut robots {
+            robot.steps(x_outlier, self.size);
+        }
+
+        let mut second = x_outlier;
 
         loop {
-            second += 1;
+            second += self.size.x;
             for robot in &mut robots {
-                robot.step(self.size);
+                robot.steps(self.size.x, self.size);
             }
 
             if robots_count(&robots).values().all_equal_value() == Ok(&1) {
-                break;
+                print_map(&robots, self.size);
+                return second.to_string();
             }
         }
-
-        print_map(&robots, self.size);
-
-        second.to_string()
     }
 }
 
 impl Robot {
     fn step(&mut self, size: IVec2) {
         self.position = (self.position + self.velocity).rem_euclid(size);
+    }
+
+    fn steps(&mut self, steps: i32, size: IVec2) {
+        self.position = (self.position + self.velocity * steps).rem_euclid(size);
     }
 
     fn get_quadrant(&self, center: IVec2) -> Option<IVec2> {
@@ -124,13 +134,25 @@ impl Robot {
     }
 }
 
+fn find_first_outlier(robots: &[Robot], size: IVec2, map_fn: fn(&IVec2) -> i32) -> i32 {
+    let mut robots = robots.to_vec();
+    let mut second = 0;
+
+    loop {
+        second += 1;
+        for robot in &mut robots {
+            robot.step(size);
+        }
+
+        let counts = robots.iter().map(|r| map_fn(&r.position)).counts();
+        if counts.values().max().unwrap() > &OUTLIER_THRESHOLD {
+            return second;
+        }
+    }
+}
+
 fn robots_count(robots: &[Robot]) -> HashMap<IVec2, usize> {
-    robots
-        .iter()
-        .into_group_map_by(|r| r.position)
-        .into_iter()
-        .map(|(p, rs)| (p, rs.len()))
-        .collect()
+    robots.iter().map(|r| r.position).counts()
 }
 
 fn print_map(robots: &[Robot], size: IVec2) {
